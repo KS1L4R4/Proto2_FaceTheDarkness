@@ -8,6 +8,9 @@ TagManager:
   - Floor
   - Enemy
   - BatteryPack
+  - RedKey
+  - YellowKey
+  - BlueKey
   layers:
   - Default
   - TransparentFX
