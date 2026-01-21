@@ -2,14 +2,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponBehaviour : MonoBehaviour
-{
-
-    public Transform firePoint;
+{   
+    //Elementos de la escena
     public LayerMask hitLayers;
     public PlayerController playerController;
-    public float range =10000f;
-    public int damage = 10;
+    public Transform firePoint;
     LineRenderer laserLine;
+
+    //Enteros
+    public float range =10000f;
+
+    //Flotantes
+    public int damage = 10;
+
 
     private void Awake()
     {

@@ -8,23 +8,31 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
+    //Elementos de la escena
     public Rigidbody rb;
     public WeaponBehaviour weaponBehaviour;
     public HealthManager healthManager;
     public Light lamp;
     public Volume fxVolume;
+    Vignette vignette;
+
+    //Booleanos
     public bool isAiming;
     public bool isReloading;
     public bool lightOn;
+
+    //Enteros
     public int bulletsLeft;
     public int maxBullets;
+
+    //Flotantes
     public float playerSpeed;
     public float playerRotation;
     public float loadingTime;
     public float oil;
     public float maxOil;
     public float oilRate;
-    Vignette vignette;
+
 
     private void Awake()
     {

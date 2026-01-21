@@ -3,11 +3,15 @@ using UnityEngine.AI;
 
 public class EnemyBehaviourAndHealth : MonoBehaviour
 {
+    //Elementos de la escena
     public Transform player;
     public NavMeshAgent navMesh;
+
+    //Enteros
     public int enemyHealth;
     public int enemyDamage;
 
+    //Flotantes
     private float attackCooldown;
     private float attackTimer;
 
@@ -23,7 +27,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 
     void Update()
     {
-        navMesh.SetDestination(player.position);
+        navMesh.SetDestination(player.position);    
         if (IsPlayerInHarmRange())
         {
             AttackPlayer();

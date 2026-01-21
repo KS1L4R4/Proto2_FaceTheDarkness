@@ -15,12 +15,13 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-            hudUi.SetActive(true);
-            defeatViewUi.SetActive(false);
+        hudUi.SetActive(true);
+        defeatViewUi.SetActive(false);
     }
 
     void Update()
     {
+        //Mover este codigo del Update a funciones individuales
         bulletsAmmountTxt.text = "Bullets: " + playerController.bulletsLeft.ToString();
         healthAmmountTxt.text = "Health: " + healthManager.playerHealth.ToString();
         oilAmmount.text = "Battery: " + playerController.oil.ToString();

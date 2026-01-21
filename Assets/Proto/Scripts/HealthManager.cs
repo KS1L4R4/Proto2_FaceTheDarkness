@@ -2,10 +2,15 @@ using UnityEngine;
 
 public class HealthManager : MonoBehaviour
 {
+    //Elementos de la escena
     public UIManager uIManager;
     public PlayerController playerController;
+
+    //Enteros
     public int playerHealth;
     public int maxHealth;
+
+    //Booleanos
     public bool isAlive;
 
     void Start()
