@@ -13,11 +13,15 @@ public class HealthManager : MonoBehaviour
     //Booleanos
     public bool isAlive;
 
+    //Sanidad
+    public float sanidad = 5f;
+
     void Start()
     {
         maxHealth = 5;
         playerHealth = maxHealth;
         isAlive = true;
+        sanidad = 5f;
     }
 
     void Update()
@@ -25,6 +29,16 @@ public class HealthManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             HarmPlayer();
+        }
+
+        if (Input.GetKey(KeyCode.T))
+        {
+            sanidad -= Time.deltaTime;
+            if (sanidad < 0)
+            {
+                sanidad = 0;
+                KillPlayer();
+            }
         }
     }
 
