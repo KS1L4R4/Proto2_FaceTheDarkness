@@ -1964,6 +1964,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
   player: {fileID: 1404189358}
   offset: {x: -14, y: 14, z: -14}
+  smoothSpeed: 5
 --- !u!1 &332439545
 GameObject:
   m_ObjectHideFlags: 0
@@ -10749,11 +10750,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d27db2429dc46828ed33b98ca97e92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponBehaviour
-  firePoint: {fileID: 1863403869}
   hitLayers:
     serializedVersion: 2
     m_Bits: 4294967295
   playerController: {fileID: 1404189360}
+  firePoint: {fileID: 1863403869}
   range: 1000
   damage: 10
 --- !u!120 &1863403874
@@ -10982,6 +10983,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviourAndHealth
   player: {fileID: 0}
   navMesh: {fileID: 0}
+  enemyHealth: 0
+  enemyDamage: 0
 --- !u!195 &1872596852
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -59,25 +59,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Movement and rotation related
-        if (isReloading == false && healthManager.isAlive == true) //Player can move
-        {
-            rb.linearVelocity = transform.forward * (Input.GetAxis("Vertical") * playerSpeed);
-            transform.Rotate(new Vector3 (0, Input.GetAxis("Horizontal") * playerRotation, 0));    
-        }
+        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        rb.linearVelocity = moveVector.normalized * playerSpeed;
+        
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
         {
-            if (isAiming == false && isReloading == false)
-            {
-                playerSpeed = 5f;
-            }
+            playerSpeed = 5f;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift)) //Player walks
         {
-            if (isAiming == false && isReloading == false)
-            {
-                playerSpeed = 3f;
-            }
+            playerSpeed = 3f;
         }
 
         //Weapons related
