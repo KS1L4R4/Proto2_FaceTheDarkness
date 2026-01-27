@@ -1321,6 +1321,7 @@ MonoBehaviour:
   playerHealth: 0
   maxHealth: 0
   isAlive: 0
+  sanidad: 5
 --- !u!4 &270736989
 Transform:
   m_ObjectHideFlags: 0
@@ -1900,8 +1901,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0661306, y: 8.963206e-16, z: -5.940426e-17, w: 0.997811}
-  m_LocalPosition: {x: 13.45, y: 1.45, z: 12.52}
+  m_LocalRotation: {x: 0.1471782, y: -0.042794462, z: 0.0063738576, w: 0.98816323}
+  m_LocalPosition: {x: 13.66, y: 1.74, z: 13.4800005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8961,6 +8962,8 @@ MonoBehaviour:
   healthManager: {fileID: 270736988}
   lamp: {fileID: 1655855122}
   fxVolume: {fileID: 1856376492}
+  camara: {fileID: 1549655354}
+  smoothtime: 10
   isAiming: 0
   isReloading: 0
   lightOn: 0
@@ -9812,7 +9815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5d7c088409d9a40b7b09aa707777f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineOrbitalFollow
-  TargetOffset: {x: 0, y: -1.8, z: 0.62}
+  TargetOffset: {x: 0.21, y: -2.19, z: 0.95}
   TrackerSettings:
     BindingMode: 4
     PositionDamping: {x: 3.02, y: 4.16, z: 2.96}
@@ -9824,13 +9827,13 @@ MonoBehaviour:
   Orbits:
     Top:
       Radius: 2
-      Height: 5
+      Height: 4.17
     Center:
-      Radius: 4
-      Height: 2.25
+      Radius: 3.37
+      Height: 2.93
     Bottom:
-      Radius: 2.5
-      Height: 0.1
+      Radius: 1.44
+      Height: 1.93
     SplineCurvature: 0.473
   RecenteringTarget: 2
   HorizontalAxis:
@@ -9914,8 +9917,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549655348}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06613059, y: 8.92024e-16, z: 5.423895e-18, w: 0.997811}
-  m_LocalPosition: {x: 13.45, y: 1.45, z: 12.52}
+  m_LocalRotation: {x: 0.1471782, y: -0.04279446, z: 0.0063738576, w: 0.9881633}
+  m_LocalPosition: {x: 13.66, y: 1.74, z: 13.4800005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11175,7 +11178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1872596848
 MeshRenderer:
   m_ObjectHideFlags: 0

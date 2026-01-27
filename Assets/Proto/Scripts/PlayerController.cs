@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public Light lamp;
     public Volume fxVolume;
     Vignette vignette;
+    public Transform camara;
+    public float smoothtime = 5f;
 
     //Booleanos
     public bool isAiming;
@@ -59,9 +61,20 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
         rb.linearVelocity = moveVector.normalized * playerSpeed;
-        
+
+        if (moveVector.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + camara.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smoothtime, smoothtime);
+
+            transform.rotation = Quaternion.Euler(0, angle, 0);
+            Vector3 movedir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+
+            rb.linearVelocity = movedir * playerSpeed + new Vector3(0, rb.linearVelocity.y, 0);
+        }
+
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
         {
             playerSpeed = 5f;
