@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public Light lamp;
     public Volume fxVolume;
     Vignette vignette;
+    public Transform camara;
+    public float smoothtime = 5f;
 
     //Booleanos
     public bool isAiming;
@@ -59,25 +61,27 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        //Movement and rotation related
-        if (isReloading == false && healthManager.isAlive == true) //Player can move
+        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+        rb.linearVelocity = moveVector.normalized * playerSpeed;
+
+        if (moveVector.magnitude >= 0.1f)
         {
-            rb.linearVelocity = transform.forward * (Input.GetAxis("Vertical") * playerSpeed);
-            transform.Rotate(new Vector3 (0, Input.GetAxis("Horizontal") * playerRotation, 0));    
+            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + camara.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smoothtime, smoothtime);
+
+            transform.rotation = Quaternion.Euler(0, angle, 0);
+            Vector3 movedir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+
+            rb.linearVelocity = movedir * playerSpeed + new Vector3(0, rb.linearVelocity.y, 0);
         }
+
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
         {
-            if (isAiming == false && isReloading == false)
-            {
-                playerSpeed = 5f;
-            }
+            playerSpeed = 5f;
         }
         if (Input.GetKeyUp(KeyCode.LeftShift)) //Player walks
         {
-            if (isAiming == false && isReloading == false)
-            {
-                playerSpeed = 3f;
-            }
+            playerSpeed = 3f;
         }
 
         //Weapons related
