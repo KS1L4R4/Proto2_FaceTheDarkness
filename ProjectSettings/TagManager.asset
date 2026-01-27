@@ -11,6 +11,9 @@ TagManager:
   - RedKey
   - YellowKey
   - BlueKey
+  - RedDoor
+  - YellowDoor
+  - BlueDoor
   layers:
   - Default
   - TransparentFX
