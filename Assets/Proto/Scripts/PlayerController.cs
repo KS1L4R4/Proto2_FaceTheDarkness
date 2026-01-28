@@ -9,6 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class PlayerController : MonoBehaviour
 {
     //Elementos de la escena
+    private PlayerInventory inventory;
     public Rigidbody rb;
     public WeaponBehaviour weaponBehaviour;
     public HealthManager healthManager;
@@ -44,6 +45,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        inventory = GetComponent<PlayerInventory>();
         playerSpeed = 3f;
         playerRotation = 0.5f;
         maxBullets = 6;
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //Oil and lamp related
-        if(oil > 0)
+        if (oil > 0)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -146,6 +148,43 @@ public class PlayerController : MonoBehaviour
         {
             oil = maxOil;
             Destroy(other.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision) //Revision con el inventario por las llaves de colores
+    {
+        if (collision.collider.CompareTag("RedDoor"))
+        {
+            if(inventory.redPicked == true)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                Debug.Log("Red key missing");
+            }
+        }
+        if (collision.collider.CompareTag("YellowDoor"))
+        {
+            if (inventory.yellowPicked == true)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                Debug.Log("Yellow key missing");
+            }
+        }
+        if (collision.collider.CompareTag("BlueDoor"))
+        {
+            if (inventory.bluePicked == true)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                Debug.Log("Blue key missing");
+            }
         }
     }
 
