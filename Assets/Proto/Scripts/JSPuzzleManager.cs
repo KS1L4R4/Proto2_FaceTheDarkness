@@ -25,6 +25,8 @@ public class JSPuzzleManager : MonoBehaviour
     private Transform draggingPiece = null;
     private Vector3 offset;
 
+    private int piecesCorrect;
+
     private void Start()
     {
         foreach (Texture2D texture in imageTextures)
@@ -54,6 +56,8 @@ public class JSPuzzleManager : MonoBehaviour
 
         // Update the border to fir the new puzzle size
         UpdateBorder();
+
+        piecesCorrect = 0;
     }
 
     Vector2Int GetDimensions(Texture2D jigsawTexture, int difficulty)
@@ -218,8 +222,16 @@ public class JSPuzzleManager : MonoBehaviour
         {
             // Snap to the correct location
             draggingPiece.localPosition = targetPosition;
+
             // Disable the collider so it can't be moved again
             draggingPiece.GetComponent<BoxCollider2D>().enabled = false;
+
+            // Increase the count of correct pieces
+            piecesCorrect++;
+            if (piecesCorrect == pieces.Count)
+            {
+                Debug.Log("Puzzle Complete!");
+            }
         }
     }
 }
