@@ -1,37 +1,30 @@
+using System.Collections.Generic; //Librería que contiene la clase List
+using System.Linq;
 using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public bool redPicked;
-    public bool yellowPicked;
-    public bool bluePicked;
+    public List<Key> keyList;
 
     private void Start()
     {
-        redPicked = false;
-        yellowPicked = false;
-        bluePicked = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("RedKey"))
+        Key key = other.GetComponent<Key>();
+		if (key != null)
+		{
+            keyList.Add(key);
+            other.gameObject.SetActive(false);
+		}
+	}
+
+    public void RemoveKey(Key keyToRemove)
+    {
+        if (keyList.Contains(keyToRemove))
         {
-            redPicked = true;
-            Debug.Log("Red key was picked");
-            Destroy(other.gameObject);
-        }
-        if (other.CompareTag("YellowKey"))
-        {
-            yellowPicked = true;
-            Debug.Log("Yellow key was picked");
-            Destroy(other.gameObject);
-        }
-        if (other.CompareTag("BlueKey"))
-        {
-            bluePicked = true;
-            Debug.Log("Blue key was picked");
-            Destroy(other.gameObject);
+            keyList.Remove(keyToRemove);
         }
     }
 }
