@@ -5,6 +5,7 @@ public class HealthManager : MonoBehaviour
     //Elementos de la escena
     public UIManager uIManager;
     public PlayerController playerController;
+    public enum HealthType { nomral, hurt, pk}
 
     //Enteros
     public int playerHealth;

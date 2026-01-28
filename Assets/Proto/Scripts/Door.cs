@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-	public KeyId doorId;
+	public KeyId requiredKey;
 
 	public void OpenDoor()
 	{

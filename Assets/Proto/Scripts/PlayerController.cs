@@ -44,6 +44,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
 	{
+
 		rb = GetComponent<Rigidbody>();
 		inventory = GetComponent<PlayerInventory>();
 		playerSpeed = 3f;
@@ -149,6 +150,8 @@ public class PlayerController : MonoBehaviour
 		//}
 	}
 
+
+
 	private void OnCollisionEnter(Collision collision) //Revision con el inventario por las llaves de colores
 	{
 		Door door = collision.gameObject.GetComponent<Door>();
@@ -161,7 +164,7 @@ public class PlayerController : MonoBehaviour
 		for(int i = 0; i < inventory.keyList.Count; i++)
 		{
 			Key key = inventory.keyList[i];
-			if (key.keyId == door.doorId)
+			if (key.keyId == door.requiredKey)
 			{
 				door.OpenDoor();
 				inventory.RemoveKey(key);

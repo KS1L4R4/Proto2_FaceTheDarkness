@@ -8,6 +8,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
+
     }
 
     private void OnTriggerEnter(Collider other)

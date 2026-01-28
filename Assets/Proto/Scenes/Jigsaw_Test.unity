@@ -155,6 +155,9 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 8774cb32d1851454081709d3c74cf94d, type: 3}
   levelSelectPanel: {fileID: 1570365427}
   gameStarter: {fileID: 4270193340353027239, guid: 176b82201c269b24d97bd2c1d671bb87, type: 3}
+  pieces: []
+  dimensions: {x: 0, y: 0}
+  currentDistance: 0
 --- !u!4 &269835727
 Transform:
   m_ObjectHideFlags: 0
@@ -274,7 +277,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 564104309}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 6}
   m_ConstrainProportionsScale: 1
