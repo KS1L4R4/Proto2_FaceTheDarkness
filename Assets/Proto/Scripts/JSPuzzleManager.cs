@@ -33,6 +33,7 @@ public class JSPuzzleManager : MonoBehaviour
     private Transform draggingPiece = null;
     private Vector3 offset;
 
+    [SerializeField]
     private int piecesCorrect;
 
     private void Start()
@@ -236,11 +237,12 @@ public class JSPuzzleManager : MonoBehaviour
 
         // The target position in the non-scaled coordinates
         Vector3 targetPosition = new((-width * dimensions.x / 2) + (width * col) + (width / 2),
-                                     (height * dimensions.y / 2) + (height * row) + (height / 2));
+                                     (height * dimensions.y / 2) + (height * row) + (height / 2)-1);
+        print(targetPosition);
 
         currentDistance = Vector3.Distance(draggingPiece.localPosition, targetPosition);
         // Check if we're in the correct location
-        if (currentDistance < (width / 2))
+        if (currentDistance < (width)-.025)
         {
             // Snap to the correct location
             draggingPiece.localPosition = targetPosition;
