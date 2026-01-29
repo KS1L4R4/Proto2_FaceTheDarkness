@@ -31,7 +31,7 @@ public class HealthManager : MonoBehaviour
             HarmPlayer();
         }
 
-        if (Input.GetKey(KeyCode.T))
+        /*if (Input.GetKey(KeyCode.T))
         {
             sanidad -= Time.deltaTime;
             if (sanidad < 0)
@@ -39,7 +39,7 @@ public class HealthManager : MonoBehaviour
                 sanidad = 0;
                 KillPlayer();
             }
-        }
+        }*/
     }
 
     public void HarmPlayer()
@@ -56,5 +56,16 @@ public class HealthManager : MonoBehaviour
         isAlive = false;
         playerController.rb.linearVelocity = Vector3.zero;
         uIManager.ShowDefeatView();
+    }
+
+    public void SanidadRes()
+    {
+        sanidad -= Time.deltaTime;
+        if (sanidad < 0)
+        {
+            sanidad = 0;
+            KillPlayer();
+        }
+        
     }
 }

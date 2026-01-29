@@ -864,10 +864,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Doll
   spawnPoints:
-  - {fileID: 1829727385}
-  - {fileID: 396029806}
-  - {fileID: 1492379775}
-  moved: 0
+  - {fileID: 1829727386}
+  - {fileID: 396029807}
+  - {fileID: 1492379776}
+  drop: {fileID: 233764168317388174, guid: a0df64baa4c6442449ca664492f3b4e7, type: 3}
 --- !u!1 &1492379775
 GameObject:
   m_ObjectHideFlags: 0

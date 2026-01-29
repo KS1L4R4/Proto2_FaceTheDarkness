@@ -1,27 +1,31 @@
+using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Doll : MonoBehaviour
 {
     int found = 0;
-    public GameObject[] spawnPoints;
-    public bool moved = false;
+    public Transform[] spawnPoints;
+    public GameObject drop;
+
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            moved = false;
             found++;
-            if (moved == false)
-            {
-                    //transform.position = spawnPoints.transform.position;
-                moved = true;
-            }  
+            int nextPoint = Random.Range(0, spawnPoints.Length);
+            transform.position = spawnPoints[nextPoint].position;
         }
 
         if (found == 3)
         {
             gameObject.SetActive(false);
+            DropItem();
         }
+    }
+    public void DropItem()
+    {
+        Instantiate(drop);
     }
 }
