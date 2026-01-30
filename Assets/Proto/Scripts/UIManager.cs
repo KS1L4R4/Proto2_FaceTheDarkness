@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI bulletsAmmountTxt;
     public TextMeshProUGUI healthAmmountTxt;
     public TextMeshProUGUI oilAmmount;
+    public TextMeshProUGUI sanity;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class UIManager : MonoBehaviour
         bulletsAmmountTxt.text = "Bullets: " + playerController.bulletsLeft.ToString();
         healthAmmountTxt.text = "Health: " + healthManager.playerHealth.ToString();
         oilAmmount.text = "Battery: " + playerController.oil.ToString();
+        sanity.text = "Sanidad: " + healthManager.sanidad.ToString();
     }
 
     public void ShowDefeatView()
