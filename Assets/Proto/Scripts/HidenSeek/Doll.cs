@@ -1,24 +1,30 @@
-using System.Numerics;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Doll : MonoBehaviour
 {
     int found = 0;
-    public Transform[] spawnPoints;
     public GameObject drop;
+    public List<Transform> locationTargets;
 
+    public void Start()
+    {
+        int start = Random.Range(0, locationTargets.Count);
+        transform.position = locationTargets[start].position;
+        locationTargets.Remove(locationTargets[start]);
+    }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             found++;
-            int nextPoint = Random.Range(0, spawnPoints.Length);
-            transform.position = spawnPoints[nextPoint].position;
+            int next = Random.Range(0, locationTargets.Count -1);
+            transform.position = locationTargets[next].position;
+            locationTargets.Remove(locationTargets[next]);
         }
 
-        if (found == 3)
+        if (found == 2)
         {
             gameObject.SetActive(false);
             DropItem();
@@ -26,6 +32,6 @@ public class Doll : MonoBehaviour
     }
     public void DropItem()
     {
-        Instantiate(drop);
+        Instantiate(drop,transform.position,Quaternion.identity);
     }
 }

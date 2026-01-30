@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         isAiming = false;
         isReloading = false;
         loadingTime = 1f;
-        maxOil = 10f;
+        maxOil = 20f;
         oil = maxOil;
         oilRate = 1f;
         lightOn = false;
