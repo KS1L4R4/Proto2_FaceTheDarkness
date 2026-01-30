@@ -15,9 +15,12 @@ public class PlayerController : MonoBehaviour
     public HealthManager healthManager;
     public Light lamp;
     public Volume fxVolume;
+    public Volume light;
+    public Volume darkness;
     Vignette vignette;
     public Transform camara;
     public float smoothtime = 5f;
+    public bool dark = false;
 
     //Booleanos
     public bool isAiming;
@@ -53,7 +56,7 @@ public class PlayerController : MonoBehaviour
         isAiming = false;
         isReloading = false;
         loadingTime = 1f;
-        maxOil = 10f;
+        maxOil = 20f;
         oil = maxOil;
         oilRate = 1f;
         lightOn = false;
@@ -120,6 +123,9 @@ public class PlayerController : MonoBehaviour
             {
                 lightOn = !lightOn;
                 lamp.enabled = lightOn;
+                light.gameObject.SetActive(true);
+                darkness.gameObject.SetActive(false);
+                dark = false;
                 ToggleVignette(lightOn);
             }
         }
@@ -128,7 +134,10 @@ public class PlayerController : MonoBehaviour
             lightOn = false;
             lamp.enabled = lightOn;
             ToggleVignette(lightOn);
+            light.gameObject.SetActive(false);
+            darkness.gameObject.SetActive(true);
             oil = 0;
+
         }
         if (lightOn == true)
         {
@@ -139,6 +148,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             oil = maxOil;
+        }
+        if (oil == 0 || dark == true)
+        {
+            healthManager.SanidadRes();
         }
     }
 
@@ -205,6 +218,17 @@ public class PlayerController : MonoBehaviour
     void ToggleVignette(bool on)
     {
         vignette.intensity.value = on ? 0.5f : 1f;
+    }
+
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Dark"))
+        {
+            dark = true;
+        } else if (other.gameObject.CompareTag("Light"))
+        {
+            dark = false;
+        }
     }
 
     IEnumerator Reaload()
