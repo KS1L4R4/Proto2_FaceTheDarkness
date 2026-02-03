@@ -7091,6 +7091,7 @@ MonoBehaviour:
   bulletsAmmountTxt: {fileID: 305436294}
   healthAmmountTxt: {fileID: 683917420}
   oilAmmount: {fileID: 1496207444}
+  sanity: {fileID: 0}
 --- !u!1 &1148047678
 GameObject:
   m_ObjectHideFlags: 0
