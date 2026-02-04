@@ -112,6 +112,7 @@ public class PlayerController : MonoBehaviour
             {
                 weaponBehaviour.Shoot();
                 bulletsLeft--;
+                UIManager.instance.UpdateBullets(bulletsLeft);
             }
 
         }
@@ -124,31 +125,44 @@ public class PlayerController : MonoBehaviour
         }
 
         //Oil and lamp related
-        if (oil > 0)
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                lightOn = !lightOn;
-                lamp.enabled = lightOn;
-                light.gameObject.SetActive(true);
-                darkness.gameObject.SetActive(false);
-                dark = false;
-                ToggleVignette(lightOn);
-            }
-        }
-        else
-        {
-            lightOn = false;
-            lamp.enabled = lightOn;
-            ToggleVignette(lightOn);
-            light.gameObject.SetActive(false);
-            darkness.gameObject.SetActive(true);
-            oil = 0;
 
-        }
+        //Simplificar el código y encapsular la lógica de la linterna en una sola función
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            ToggleLight(!lightOn);
+		}
+
+        //if (oil > 0)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.F))
+        //    {
+        //        lightOn = !lightOn;
+        //        lamp.enabled = lightOn;
+        //        light.gameObject.SetActive(true);
+        //        darkness.gameObject.SetActive(false);
+        //        dark = false;
+        //        ToggleVignette(lightOn);
+        //    }
+        //}
+        //else
+        //{
+        //    lightOn = false;
+        //    lamp.enabled = lightOn;
+        //    ToggleVignette(lightOn);
+        //    light.gameObject.SetActive(false);
+        //    darkness.gameObject.SetActive(true);
+        //    oil = 0;
+        //}
+
         if (lightOn == true)
         {
             oil -= oilRate * Time.deltaTime;
+            UIManager.instance.UpdateOil(oil);
+
+            if(oil <= 0)
+            {
+                ToggleLight(false);
+			}
         }
 
         //Testing
@@ -161,6 +175,28 @@ public class PlayerController : MonoBehaviour
             healthManager.SanidadRes();
         }
     }
+
+    private void ToggleLight(bool active)
+    {
+        //checar si el jugador intenta prender la linterna, si no tiene aceite no ejecutar el resto
+        if(oil <= 0)
+        {
+            active = false;
+            oil = 0;
+			UIManager.instance.UpdateOil(oil);
+			return;
+        }
+
+        lightOn = active;
+		lamp.enabled = active;
+
+        //Cuidar referencias nulas
+		light?.gameObject?.SetActive(active);
+		darkness?.gameObject?.SetActive(active);
+
+		dark = active;
+		ToggleVignette(active);
+	}
 
     private void OnTriggerEnter(Collider other)
     {

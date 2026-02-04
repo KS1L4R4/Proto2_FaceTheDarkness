@@ -45,6 +45,7 @@ public class HealthManager : MonoBehaviour
     public void HarmPlayer()
     {
         playerHealth--;
+        UIManager.instance.UpdateHealth(playerHealth);
         if(playerHealth <= 0)
         {
             KillPlayer();
@@ -61,6 +62,7 @@ public class HealthManager : MonoBehaviour
     public void SanidadRes()
     {
         sanidad -= Time.deltaTime;
+        UIManager.instance.UpdateSanity(sanidad);
         if (sanidad < 0)
         {
             sanidad = 0;
