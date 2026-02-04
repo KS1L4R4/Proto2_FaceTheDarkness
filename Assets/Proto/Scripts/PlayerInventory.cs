@@ -1,37 +1,27 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine.InputSystem;
+using System.Xml.Linq;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public bool redPicked;
-    public bool yellowPicked;
-    public bool bluePicked;
-
-    private void Start()
-    {
-        redPicked = false;
-        yellowPicked = false;
-        bluePicked = false;
-    }
+    public List<InteractuableDesignator> keyList;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("RedKey"))
+        InteractuableDesignator key = other.GetComponent<InteractuableDesignator>();
+        if (key != null)
         {
-            redPicked = true;
-            Debug.Log("Red key was picked");
-            Destroy(other.gameObject);
+            keyList.Add(key);
+            other.gameObject.SetActive(false);
         }
-        if (other.CompareTag("YellowKey"))
+    }
+    public void RemoveKey(InteractuableDesignator keyToRemove)
+    {
+        if (keyList.Contains(keyToRemove))
         {
-            yellowPicked = true;
-            Debug.Log("Yellow key was picked");
-            Destroy(other.gameObject);
-        }
-        if (other.CompareTag("BlueKey"))
-        {
-            bluePicked = true;
-            Debug.Log("Blue key was picked");
-            Destroy(other.gameObject);
+            keyList.Remove(keyToRemove);
         }
     }
 }

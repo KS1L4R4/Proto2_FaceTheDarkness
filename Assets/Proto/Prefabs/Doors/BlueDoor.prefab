@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6241625499820302114}
   - component: {fileID: 7439832553993265}
   - component: {fileID: 2523886422639347737}
+  - component: {fileID: 3483457878687157674}
   m_Layer: 0
   m_Name: BlueDoor
   m_TagString: BlueDoor
@@ -112,3 +113,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3483457878687157674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287416902980640405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c5be5cab578e4d4c9db557104ff7b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorDesignator
+  requiredKey: 1
