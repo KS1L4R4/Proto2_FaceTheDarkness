@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public Transform camara;
     public float smoothtime = 5f;
     public bool dark = false;
+    float turnVelocity;
 
     //Booleanos
     public bool isAiming;
@@ -71,13 +72,19 @@ public class PlayerController : MonoBehaviour
 
         if (moveVector.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + camara.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smoothtime, smoothtime);
+            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + camara.rotation.eulerAngles.y;
 
-            transform.rotation = Quaternion.Euler(0, angle, 0);
-            Vector3 movedir = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
+            float angle = Mathf.SmoothDampAngle(
+                transform.eulerAngles.y,
+                targetAngle,
+                ref turnVelocity,
+                playerRotation
+            );
 
-            rb.linearVelocity = movedir * playerSpeed + new Vector3(0, rb.linearVelocity.y, 0);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            rb.linearVelocity = moveDir * playerSpeed;
         }
 
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
