@@ -166,37 +166,19 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision) //Revision con el inventario por las llaves de colores
     {
-        if (collision.collider.CompareTag("RedDoor"))
+        DoorDesignator door = collision.gameObject.GetComponent<DoorDesignator>();
+        if(door == null)
         {
-            if(inventory.redPicked == true)
-            {
-                Destroy(collision.gameObject);
-            }
-            else
-            {
-                Debug.Log("Red key missing");
-            }
+            return;
         }
-        if (collision.collider.CompareTag("YellowDoor"))
+        for(int i = 0; i < inventory.keyList.Count; i++)
         {
-            if (inventory.yellowPicked == true)
+            InteractuableDesignator key = inventory.keyList[i];
+            if(key.Designation == door.requiredKey)
             {
-                Destroy(collision.gameObject);
-            }
-            else
-            {
-                Debug.Log("Yellow key missing");
-            }
-        }
-        if (collision.collider.CompareTag("BlueDoor"))
-        {
-            if (inventory.bluePicked == true)
-            {
-                Destroy(collision.gameObject);
-            }
-            else
-            {
-                Debug.Log("Blue key missing");
+                door.OpenDoor();
+                inventory.RemoveKey(key);
+                return;
             }
         }
     }
