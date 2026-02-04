@@ -24,7 +24,7 @@ public class Doll : MonoBehaviour
             locationTargets.Remove(locationTargets[next]);
         }
 
-        if (found == 2)
+        if (found == 3)
         {
             gameObject.SetActive(false);
             DropItem();
