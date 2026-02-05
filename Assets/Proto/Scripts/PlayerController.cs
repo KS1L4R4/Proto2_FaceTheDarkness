@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public HealthManager healthManager;
     public Light lamp;
     public Volume fxVolume;
-    public Volume light;
+    public Volume safeLight;
     public Volume darkness;
     Vignette vignette;
     public Transform camara;
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
             {
                 lightOn = !lightOn;
                 lamp.enabled = lightOn;
-                light.gameObject.SetActive(true);
+                safeLight.gameObject.SetActive(true);
                 darkness.gameObject.SetActive(false);
                 dark = false;
                 ToggleVignette(lightOn);
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
             lightOn = false;
             lamp.enabled = lightOn;
             ToggleVignette(lightOn);
-            light.gameObject.SetActive(false);
+            safeLight.gameObject.SetActive(false);
             darkness.gameObject.SetActive(true);
             oil = 0;
 
@@ -178,13 +178,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        for(int i = 0; i < inventory.keyList.Count; i++)
+        for(int i = 0; i < inventory.pickablesList.Count; i++)
         {
-            InteractuableDesignator key = inventory.keyList[i];
+            InteractuableDesignator key = inventory.pickablesList[i];
             if(key.Designation == door.requiredKey)
             {
                 door.OpenDoor();
-                inventory.RemoveKey(key);
+                inventory.RemovePickable(key);
                 return;
             }
         }
