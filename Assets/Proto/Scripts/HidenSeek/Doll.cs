@@ -6,6 +6,7 @@ public class Doll : MonoBehaviour
     int found = 0;
     public GameObject drop;
     public List<Transform> locationTargets;
+    public Transform dropLocation;
 
     public void Start()
     {
@@ -19,19 +20,21 @@ public class Doll : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             found++;
+            if (found == 3)
+            {
+                DropItem();
+                gameObject.SetActive(false);
+                return;
+            }
             int next = Random.Range(0, locationTargets.Count -1);
             transform.position = locationTargets[next].position;
             locationTargets.Remove(locationTargets[next]);
         }
 
-        if (found == 3)
-        {
-            gameObject.SetActive(false);
-            DropItem();
-        }
+        
     }
     public void DropItem()
     {
-        Instantiate(drop,transform.position,Quaternion.identity);
+        Instantiate(drop,dropLocation.transform.position,Quaternion.identity);
     }
 }
