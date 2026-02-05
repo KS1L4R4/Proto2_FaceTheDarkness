@@ -7,12 +7,18 @@ public class Doll : MonoBehaviour
     public GameObject drop;
     public List<Transform> locationTargets;
     public Transform dropLocation;
+    public Transform player;
 
     public void Start()
     {
         int start = Random.Range(0, locationTargets.Count);
         transform.position = locationTargets[start].position;
         locationTargets.Remove(locationTargets[start]);
+    }
+
+    public void Update()
+    {
+        transform.LookAt(player);
     }
 
     public void OnCollisionEnter(Collision collision)
