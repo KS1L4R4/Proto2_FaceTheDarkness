@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 lightOn = !lightOn;
                 lamp.enabled = lightOn;
                 safeLight.gameObject.SetActive(true);
-                darkness.gameObject.SetActive(false);
+                //darkness.gameObject.SetActive(false);
                 dark = false;
                 ToggleVignette(lightOn);
             }
@@ -142,13 +142,17 @@ public class PlayerController : MonoBehaviour
             lamp.enabled = lightOn;
             ToggleVignette(lightOn);
             safeLight.gameObject.SetActive(false);
-            darkness.gameObject.SetActive(true);
+            //darkness.gameObject.SetActive(true);
             oil = 0;
 
         }
         if (lightOn == true)
         {
             oil -= oilRate * Time.deltaTime;
+            darkness.gameObject.SetActive(false);
+        } else
+        {
+            darkness.gameObject.SetActive(true);
         }
 
         //Testing
