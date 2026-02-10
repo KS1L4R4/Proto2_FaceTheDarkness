@@ -21,6 +21,11 @@ public class Doll : MonoBehaviour
         transform.LookAt(player);
     }
 
+    private void LateUpdate()
+    {
+        transform.eulerAngles = new Vector3(0, transform.eulerAngles.y, 0);
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
