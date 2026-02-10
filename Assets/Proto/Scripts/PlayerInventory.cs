@@ -11,8 +11,8 @@ public class PlayerInventory : MonoBehaviour
 
     //public List<InteractuableDesignator> oilList;
     public List<InteractuableDesignator> pickablesList;
-    int oilCounter = 0;
-    int lavenderCounter = 0;
+    public int oilCounter = 0;
+    public int lavenderCounter = 0;
 
     int maxCapacity = 3;
 
