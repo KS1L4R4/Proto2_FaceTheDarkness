@@ -131,6 +131,10 @@ public class PlayerController : MonoBehaviour
         if (lightOn == true)
         {
             oil -= oilRate * Time.deltaTime;
+            darkness.gameObject.SetActive(false);
+        } else
+        {
+            darkness.gameObject.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
