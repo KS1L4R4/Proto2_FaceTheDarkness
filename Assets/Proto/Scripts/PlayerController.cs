@@ -9,9 +9,9 @@ using UnityEngine.Rendering.Universal;
 public class PlayerController : MonoBehaviour
 {
     //Elementos de la escena
+    private PlayerInventory playerInventory;
     private PlayerInventory inventory;
     public Rigidbody rb;
-    public WeaponBehaviour weaponBehaviour;
     public HealthManager healthManager;
     public Light lamp;
     public Volume fxVolume;
@@ -21,7 +21,6 @@ public class PlayerController : MonoBehaviour
     public Transform camara;
     public float smoothtime = 5f;
     public bool dark = false;
-    float turnVelocity;
 
     //Booleanos
     public bool isAiming;
@@ -39,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public float oil;
     public float maxOil;
     public float oilRate;
-
+    float turnVelocity;
 
     private void Awake()
     {
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        inventory = GetComponent<PlayerInventory>();
+        playerInventory = GetComponent<PlayerInventory>();
         playerSpeed = 3f;
         playerRotation = 0.5f;
         maxBullets = 6;
@@ -62,7 +61,7 @@ public class PlayerController : MonoBehaviour
         oilRate = 1f;
         lightOn = false;
         lamp.enabled = false;
-        vignette.intensity.value = 1f;
+        vignette.intensity.value = 0.2f;
     }
 
     void Update()
@@ -96,53 +95,36 @@ public class PlayerController : MonoBehaviour
             playerSpeed = 3f;
         }
 
-        //Weapons related
-        if (Input.GetKeyDown(KeyCode.Mouse1)) //Player aims
-        {
-            Aiming();
-            weaponBehaviour.DrawLaser();
-        }
-        if (Input.GetKeyUp(KeyCode.Mouse1)) //Player stops aiming
-        {
-            Unaim();
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse0) || Input.GetKeyDown(KeyCode.E) && isAiming == true) //Player shoots
-        {
-            if (bulletsLeft > 0)
-            {
-                weaponBehaviour.Shoot();
-                bulletsLeft--;
-            }
-
-        }
-        if (Input.GetKeyDown(KeyCode.R)) //Player reloads
-        {
-            if (isAiming == true && bulletsLeft < maxBullets)
-            {
-                StartCoroutine(Reaload());
-            }
-        }
-
-        //Oil and lamp related
+        //Oil, lamp and lavender related
         if (oil > 0)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
                 lightOn = !lightOn;
                 lamp.enabled = lightOn;
-                safeLight.gameObject.SetActive(true);
-                //darkness.gameObject.SetActive(false);
+                if(safeLight != null)
+                {
+                    safeLight.gameObject.SetActive(true);
+                }
+                if(darkness != null)
+                {
+                    darkness.gameObject.SetActive(false);
+                }
                 dark = false;
-                ToggleVignette(lightOn);
             }
         }
         else
         {
             lightOn = false;
             lamp.enabled = lightOn;
-            ToggleVignette(lightOn);
-            safeLight.gameObject.SetActive(false);
-            //darkness.gameObject.SetActive(true);
+            if(safeLight != null)
+            {
+                safeLight.gameObject.SetActive(false);
+            }
+            if(darkness != null)
+            {
+                darkness.gameObject.SetActive(true);
+            }
             oil = 0;
 
         }
@@ -154,15 +136,23 @@ public class PlayerController : MonoBehaviour
         {
             darkness.gameObject.SetActive(true);
         }
-
-        //Testing
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            oil = maxOil;
+            if(playerInventory.oilCounter > 0)
+            {
+                RechargeLamp();
+            }
         }
         if (oil == 0 || dark == true)
         {
             healthManager.SanidadRes();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if(playerInventory.lavenderCounter > 0)
+            {
+                UseLavender();
+            }
         }
     }
 
@@ -194,25 +184,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Aiming()
-    {
-        isAiming = true;
-        playerSpeed = 0f;
-        playerRotation = 0.1f;
-    }
-
-    private void Unaim()
-    {
-        isAiming = false;
-        playerSpeed = 3f;
-        playerRotation = 0.5f;
-    }
-
-    void ToggleVignette(bool on)
-    {
-        vignette.intensity.value = on ? 0.5f : 1f;
-    }
-
     public void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Dark"))
@@ -224,11 +195,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    IEnumerator Reaload()
+    void RechargeLamp()
     {
-        isReloading = true;
-        yield return new WaitForSeconds(loadingTime);
-        bulletsLeft = maxBullets;
-        isReloading = false;
+        oil = maxOil;
+        playerInventory.oilCounter--;
+    }
+
+    void UseLavender()
+    {
+        healthManager.sanidad += 5; //Falta definir la cantidad
+        playerInventory.lavenderCounter--;
     }
 }
