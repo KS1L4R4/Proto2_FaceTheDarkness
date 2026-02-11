@@ -17,14 +17,23 @@ public class JSPuzzleManager : MonoBehaviour
     [SerializeField] private Transform levelSelectPanel;
     [SerializeField] private Image gameStarter;
 
+    [SerializeField]
     private List<Transform> pieces;
+
+    [SerializeField]
     private Vector2Int dimensions;
+
+    [SerializeField]
     private float width;
     private float height;
+
+    [SerializeField]
+    private float currentDistance;
 
     private Transform draggingPiece = null;
     private Vector3 offset;
 
+    [SerializeField]
     private int piecesCorrect;
 
     private void Start()
@@ -75,7 +84,7 @@ public class JSPuzzleManager : MonoBehaviour
             dimensions.y = difficulty;
         }
 
-            return dimensions;
+        return dimensions;
     }
 
     void CreateJigsawPieces(Texture2D jigsawTexture)
@@ -92,8 +101,8 @@ public class JSPuzzleManager : MonoBehaviour
                 // Create the piece in the right location of the right size
                 Transform piece = Instantiate(piecePrefab, gameHolder);
                 piece.localPosition = new Vector3(
-                    (-width * dimensions.x / 2) + (width * col) + (width / 2 ),
-                    (height * dimensions.y / 2) + (height * row) + (height / 2 ),
+                    (-width * dimensions.x / 2) + (width * col) + (width / 2),
+                    (height * dimensions.y / 2) + (height * row) + (height / 2),
                     1);
                 piece.localScale = new Vector3(width, height, 1);
 
@@ -111,7 +120,7 @@ public class JSPuzzleManager : MonoBehaviour
                 uv[0] = new Vector2(width1 * col, height1 * row);
                 uv[1] = new Vector2(width1 * (col + 1), height1 * row);
                 uv[2] = new Vector2(width1 * col, height1 * (row + 1));
-                uv[0] = new Vector2(width1 * (col + 1), height1 * (row + 1));
+                uv[3] = new Vector2(width1 * (col + 1), height1 * (row + 1));
 
                 //Assign our new UVs to the mesh
                 Mesh mesh = piece.GetComponent<MeshFilter>().mesh;
@@ -171,18 +180,29 @@ public class JSPuzzleManager : MonoBehaviour
         lineRenderer.enabled = true;
     }
 
+    //Crear rayo hacia el mouse
+    private Ray MouseRaycast()
+    {
+        return Camera.main.ScreenPointToRay(Input.mousePosition);
+    }
+
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && draggingPiece == null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            Ray ray = MouseRaycast();
+            RaycastHit hit;
+            Physics.Raycast(ray.origin, ray.direction, out hit, 1000);
 
-            if (hit)
+            Debug.DrawRay(ray.origin, ray.direction * 1000);
+
+            if (hit.collider != null)
             {
                 // Everything is moveable, so we don't need to check if it's a piece
                 draggingPiece = hit.transform;
-                offset = draggingPiece.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                offset += Vector3.back;
+                //offset = draggingPiece.position - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                //offset += Vector3.back;
+                //offset.z = draggingPiece.position.z;
             }
         }
 
@@ -197,9 +217,11 @@ public class JSPuzzleManager : MonoBehaviour
         // Set the dragged piece position to the position of the mouse
         if (draggingPiece)
         {
-            Vector3 newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float distanceToPiece = Vector3.Distance(Camera.main.transform.position, draggingPiece.position);
+            Vector3 newPosition = MouseRaycast().GetPoint(distanceToPiece);
 
-            newPosition += offset;
+            //newPosition += offset;
+            newPosition.z = 0;
             draggingPiece.position = newPosition;
         }
     }
@@ -214,17 +236,19 @@ public class JSPuzzleManager : MonoBehaviour
         int row = pieceIndex / dimensions.x;
 
         // The target position in the non-scaled coordinates
-        Vector2 targetPosition = new((-width * dimensions.x / 2) + (width * col) + (width / 2),
-                                     (height * dimensions.y / 2) + (height * row) + (height / 2));
+        Vector3 targetPosition = new((-width * dimensions.x / 2) + (width * col) + (width / 2),
+                                     (height * dimensions.y / 2) + (height * row) + (height / 2) - 1);
+        print(targetPosition);
 
+        currentDistance = Vector3.Distance(draggingPiece.localPosition, targetPosition);
         // Check if we're in the correct location
-        if (Vector2.Distance(draggingPiece.localPosition, targetPosition) < (width / 2))
+        if (currentDistance < (width) - .025)
         {
             // Snap to the correct location
             draggingPiece.localPosition = targetPosition;
 
             // Disable the collider so it can't be moved again
-            draggingPiece.GetComponent<BoxCollider2D>().enabled = false;
+            draggingPiece.GetComponent<BoxCollider>().enabled = false;
 
             // Increase the count of correct pieces
             piecesCorrect++;
@@ -233,5 +257,11 @@ public class JSPuzzleManager : MonoBehaviour
                 Debug.Log("Puzzle Complete!");
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.25f);
     }
 }
