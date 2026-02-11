@@ -6,7 +6,8 @@ public class InterObjects : MonoBehaviour
 {
     // The base class for all interactuable objects
     protected PlayerController playerCtrl;
-    protected Collider interactableCollider;    
+    protected Collider interactableCollider;
+
     [SerializeField] protected GameObject interactableCanvas;
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -39,5 +40,7 @@ public class InterObjects : MonoBehaviour
     protected virtual void Interact(PlayerController player)
     {
         Debug.Log("You interacted");
+        PlayerInteractionManager.Instance.ActivateLever();
+        gameObject.SetActive(false);
     }
 }
