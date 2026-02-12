@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class SimonManager : MonoBehaviour
 {
-    public Material[] colours;
+    public MeshRenderer[] colours;
 
     private int colourSelect;
     public float stayLit;
     private float stayLitCounter;
+    private bool emissionOff;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,9 +22,11 @@ public class SimonManager : MonoBehaviour
         {
             stayLitCounter -= Time.deltaTime;
         }
-        if (stayLitCounter <= 0)
+        if (stayLitCounter <= 0 && emissionOff == true)
         {
-            colours[colourSelect].DisableKeyword("_EMISSION");
+            emissionOff = false;
+          
+            colours[colourSelect].material.DisableKeyword("_EMISSION");
         }
     }
 
@@ -31,9 +34,11 @@ public class SimonManager : MonoBehaviour
     {
         colourSelect = Random.Range(0, colours.Length-1);
 
-        colours[colourSelect].EnableKeyword("_EMISSION");
+        colours[colourSelect].material.EnableKeyword("_EMISSION");
 
         stayLitCounter = stayLit;
+
+        emissionOff = true;
     }
 
     public void ColourPressed(int whichBtn)

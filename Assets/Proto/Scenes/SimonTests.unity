@@ -7511,7 +7511,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1033506221
 Transform:
   m_ObjectHideFlags: 0
@@ -11305,13 +11305,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimonManager
   colours:
-  - {fileID: 2100000, guid: 986e6e8d1a7c0da41abc30e2a7ad7a69, type: 2}
-  - {fileID: 2100000, guid: 506e2a26824b8b043841b6458cc01fd9, type: 2}
-  - {fileID: 2100000, guid: 749d4ac861c3d7a4b8271f85800132e5, type: 2}
-  - {fileID: 2100000, guid: 45fdfaef70a164f42917b2e0a59f63b7, type: 2}
-  - {fileID: 2100000, guid: c113ac8adf9219e4cb6f57881b334b06, type: 2}
-  - {fileID: 2100000, guid: 96cc0ffc6026088408ff4fc2ab1842ff, type: 2}
-  stayLit: 4
+  - {fileID: 881555714}
+  - {fileID: 5905703}
+  - {fileID: 2016504618}
+  - {fileID: 1025054767}
+  - {fileID: 753078467}
+  - {fileID: 1543803634}
+  stayLit: 2
 --- !u!1 &1678381560
 GameObject:
   m_ObjectHideFlags: 0
