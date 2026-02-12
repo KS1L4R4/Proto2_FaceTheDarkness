@@ -102,14 +102,8 @@ public class PlayerController : MonoBehaviour
             {
                 lightOn = !lightOn;
                 lamp.enabled = lightOn;
-                if(safeLight != null)
-                {
-                    safeLight.gameObject.SetActive(true);
-                }
-                if(darkness != null)
-                {
-                    darkness.gameObject.SetActive(false);
-                }
+                SetLight(true);
+                SetDark(false);
                 dark = false;
             }
         }
@@ -117,24 +111,18 @@ public class PlayerController : MonoBehaviour
         {
             lightOn = false;
             lamp.enabled = lightOn;
-            if(safeLight != null)
-            {
-                safeLight.gameObject.SetActive(false);
-            }
-            if(darkness != null)
-            {
-                darkness.gameObject.SetActive(true);
-            }
+            SetLight(false);
+            SetDark(true);
             oil = 0;
 
         }
         if (lightOn == true)
         {
             oil -= oilRate * Time.deltaTime;
-            darkness.gameObject.SetActive(false);
+            SetDark(false);
         } else
         {
-            darkness.gameObject.SetActive(true);
+            SetDark(true);
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -199,6 +187,24 @@ public class PlayerController : MonoBehaviour
     {
         oil = maxOil;
         playerInventory.oilCounter--;
+    }
+
+    private void SetLight(bool LightOn)
+    {
+        if(safeLight == null)
+        {
+            return;
+        }
+        safeLight.gameObject.SetActive(LightOn);
+    }
+
+    private void SetDark(bool DarkOn)
+    {
+        if(darkness == null)
+        {
+            return;
+        }
+        darkness.gameObject.SetActive(DarkOn);
     }
 
     void UseLavender()
