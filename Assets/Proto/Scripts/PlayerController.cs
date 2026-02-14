@@ -22,14 +22,8 @@ public class PlayerController : MonoBehaviour
     public float smoothtime = 5f;
     public bool dark = false;
 
-    //Booleanos
-    public bool isAiming;
-    public bool isReloading;
-    public bool lightOn;
 
-    //Enteros
-    public int bulletsLeft;
-    public int maxBullets;
+    public bool lightOn;
 
     //Flotantes
     public float playerSpeed;
@@ -51,10 +45,6 @@ public class PlayerController : MonoBehaviour
         playerInventory = GetComponent<PlayerInventory>();
         playerSpeed = 3f;
         playerRotation = 0.5f;
-        maxBullets = 6;
-        bulletsLeft = maxBullets;
-        isAiming = false;
-        isReloading = false;
         loadingTime = 1f;
         maxOil = 20f;
         oil = maxOil;
@@ -66,7 +56,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized;
+
+
+        //Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical")).normalized;
+        //rb.linearVelocity = Vector3.up * Physics.gravity.y;
+        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),  rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
         rb.linearVelocity = moveVector.normalized * playerSpeed;
 
         if (moveVector.magnitude >= 0.1f)
