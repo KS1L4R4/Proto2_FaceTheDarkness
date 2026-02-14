@@ -390,17 +390,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   rb: {fileID: 8871508373475432156}
-  weaponBehaviour: {fileID: 7691359454116213492}
   healthManager: {fileID: 0}
   lamp: {fileID: 3129648434456222765}
   fxVolume: {fileID: 0}
+  safeLight: {fileID: 0}
+  darkness: {fileID: 0}
   camara: {fileID: 8464204321058427928}
   smoothtime: 10
-  isAiming: 0
-  isReloading: 0
+  dark: 0
   lightOn: 0
-  bulletsLeft: 0
-  maxBullets: 0
   playerSpeed: 0
   playerRotation: 0
   loadingTime: 0
@@ -419,9 +417,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395ed3f12e008c1429d22f1bb1860e68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
-  redPicked: 0
-  yellowPicked: 0
-  bluePicked: 0
+  pickablesList: []
+  oilCounter: 0
+  lavenderCounter: 0
 --- !u!1 &2130909653362118186
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +483,7 @@ MonoBehaviour:
     FieldOfView: 60.000004
     OrthographicSize: 5
     NearClipPlane: 0.1
-    FarClipPlane: 1000
+    FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:

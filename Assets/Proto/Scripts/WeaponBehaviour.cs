@@ -24,42 +24,7 @@ public class WeaponBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (playerController.isAiming == true)
-        {
-            if (playerController.bulletsLeft >= 1)
-            {
-                laserLine.startColor = Color.red;
-                laserLine.startColor = Color.red;
-            }
-            if (playerController.bulletsLeft == 0)
-            {
-                laserLine.startColor = Color.grey;
-                laserLine.startColor = Color.grey;
-            }
-            if (playerController.isReloading == true)
-            {
-                laserLine.startColor = Color.yellow;
-                laserLine.startColor = Color.yellow;
-            }
-            DrawLaser();
-        }
-        if(playerController.isAiming == false && playerController.isReloading == false)
-        {
-            laserLine.enabled = false;
-        }
-    }
 
-    public void Shoot()
-    {
-        Ray ray = new Ray(firePoint.position, transform.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, range, hitLayers))
-        {
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                hit.transform.GetComponent<EnemyBehaviourAndHealth>().HarmEnemy();
-            }
-        }
     }
 
     public void DrawLaser()
