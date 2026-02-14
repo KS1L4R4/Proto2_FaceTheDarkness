@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            //rb.linearVelocity = moveDir * playerSpeed;
+            rb.linearVelocity = moveDir * playerSpeed;
         }
 
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
