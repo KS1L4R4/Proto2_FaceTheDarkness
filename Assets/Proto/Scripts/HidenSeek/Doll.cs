@@ -8,9 +8,12 @@ public class Doll : MonoBehaviour
     public List<Transform> locationTargets;
     public Transform dropLocation;
     public Transform player;
+    AudioSource laugh;
 
     public void Start()
     {
+        laugh = GetComponent<AudioSource>();
+
         int start = Random.Range(0, locationTargets.Count);
         transform.position = locationTargets[start].position;
         locationTargets.Remove(locationTargets[start]);
@@ -48,4 +51,23 @@ public class Doll : MonoBehaviour
     {
         Instantiate(drop,dropLocation.transform.position,Quaternion.identity);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            laugh.Play();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            laugh.Stop();
+        }
+    }
 }
+
+//Sound Effect by <a href="https://pixabay.com/users/phatphrogstudio-54178146/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=477944">PhatPhrogStudio</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=477944">Pixabay</a>
+//Sound Effect by PhatPhrogStudio from Pixabay
