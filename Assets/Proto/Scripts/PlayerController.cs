@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
         //Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical")).normalized;
         //rb.linearVelocity = Vector3.up * Physics.gravity.y;
-        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),  rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
+        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),  0, Input.GetAxisRaw("Vertical"));
         Vector3 velocity = new Vector3(moveVector.x * playerSpeed,rb.linearVelocity.y,moveVector.z * playerSpeed);
 
         if (moveVector.magnitude >= 0.1f)
