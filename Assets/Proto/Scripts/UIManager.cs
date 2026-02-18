@@ -9,24 +9,12 @@ public class UIManager : MonoBehaviour
     public GameObject hudUi;
     public GameObject defeatViewUi;
     public GameObject mainMenuUi;
-    public TextMeshProUGUI bulletsAmmountTxt;
-    public TextMeshProUGUI healthAmmountTxt;
     public TextMeshProUGUI oilAmmount;
-    public TextMeshProUGUI sanity;
 
     void Start()
     {
         hudUi.SetActive(true);
         defeatViewUi.SetActive(false);
-    }
-
-    void Update()
-    {
-        //Mover este codigo del Update a funciones individuales
-        /*bulletsAmmountTxt.text = "Bullets: " + playerController.bulletsLeft.ToString();*/
-        healthAmmountTxt.text = "Health: " + healthManager.playerHealth.ToString();
-        oilAmmount.text = "Battery: " + playerController.oil.ToString();
-        sanity.text = "Sanidad: " + healthManager.sanidad.ToString();
     }
 
     public void ShowDefeatView()
