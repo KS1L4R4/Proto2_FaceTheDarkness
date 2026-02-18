@@ -103,7 +103,7 @@ public class SimonManager : MonoBehaviour
                 Debug.Log("Correccc");
                 inputInSequence++;
 
-                if (inputInSequence >= activeSequence.Count)
+                if (inputInSequence >= activeSequence.Count);
             }
             else
             {
