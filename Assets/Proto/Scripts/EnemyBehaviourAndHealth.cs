@@ -22,7 +22,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 	private float attackTimer;
 	private float wanderPointsMaxTries = 5; //número de intentos máximos para obtener un punto aleatorio
 	public float wanderRadius = 15; // radio en el que buscará un punto aletorio
-	public float viewDistance = 15; 
+	public float viewDistance = 15;
 	public float viewAngle = 45;
 
 	void Start()
@@ -43,17 +43,20 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 		//navMesh.SetDestination(player.position);
 		if (!aggro)
 		{
-			sawPlayer = Vision();
-		}
+			aggro = Vision();
 
-		if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
-		{
-			UpdateDestination();
+			if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
+			{
+				UpdateDestination();
+			}
 		}
-
-		if (IsPlayerInHarmRange() && aggro)
+		else
 		{
-			AttackPlayer();
+			navMesh.destination = player.position;
+			if (IsPlayerInHarmRange())
+			{
+				AttackPlayer();
+			}
 		}
 	}
 
@@ -89,9 +92,6 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 				if (player != null)
 				{
 					Debug.Log("Found");
-					aggro = true;
-					UpdateDestination();
-
 					return true;
 				}
 			}
