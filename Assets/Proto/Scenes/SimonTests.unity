@@ -2126,7 +2126,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
+  far clip plane: 100
   field of view: 60.000004
   orthographic: 0
   orthographic size: 5
@@ -11312,6 +11312,8 @@ MonoBehaviour:
   - {fileID: 753078467}
   - {fileID: 1543803634}
   stayLit: 2
+  waitBetweenLights: 0.25
+  activeSequence: 
 --- !u!1 &1678381560
 GameObject:
   m_ObjectHideFlags: 0
