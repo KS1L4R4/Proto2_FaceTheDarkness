@@ -11,28 +11,26 @@ public class PlayerController : MonoBehaviour
     //Elementos de la escena
     private PlayerInventory playerInventory;
     private PlayerInventory inventory;
+    public EnemyBehaviourAndHealth enemyBehaviour;
     public Rigidbody rb;
     public HealthManager healthManager;
     public Light lamp;
     public Volume fxVolume;
     public Volume safeLight;
     public Volume darkness;
-    Vignette vignette;
+    private Vignette vignette;
     public Transform camara;
-    public float smoothtime = 5f;
     public bool dark = false;
-
-
     public bool lightOn;
-
-    //Flotantes
     public float playerSpeed;
     public float playerRotation;
     public float loadingTime;
     public float oil;
     public float maxOil;
     public float oilRate;
-    float turnVelocity;
+    public float smoothtime = 5f;
+    public float turnVelocity;
+    private string enemyTag = "Enemy";
 
     private void Awake()
     {
@@ -136,14 +134,10 @@ public class PlayerController : MonoBehaviour
                 UseLavender();
             }
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("BatteryPack"))
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            oil = maxOil;
-            Destroy(other.gameObject);
+            enemyBehaviour.StartStun();
         }
     }
 
@@ -205,5 +199,10 @@ public class PlayerController : MonoBehaviour
     {
         healthManager.sanidad += 5; //Falta definir la cantidad
         playerInventory.lavenderCounter--;
+    }
+
+    private void ShineLight()
+    {
+        
     }
 }

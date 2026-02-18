@@ -1,6 +1,8 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 
 public class EnemyBehaviourAndHealth : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private Vector3 startingPosition;
     private string targetTag = "Player";
     private bool playerCaught = false;
+    private bool stunned = false;
     private float maxWanderingTries = 5f;
     private float wanderingRadius = 100f;
 
@@ -23,7 +26,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(playerCaught == false)
+        if(playerCaught == false && stunned == false)
         {
             LookForPlayer();
             if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
@@ -95,5 +98,21 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         Vector3 randomPoint = Random.insideUnitSphere * wanderingRadius;
         randomPoint += transform.position;
         return randomPoint;
+    }
+
+    public void StartStun()
+    {
+        StartCoroutine(enemyStun());
+    }
+
+    IEnumerator enemyStun()
+    {
+        stunned = true;
+        navMesh.speed = 0f;
+        Debug.Log("Enemy is Stunned");
+        yield return new WaitForSeconds(5);
+        stunned = false;
+        navMesh.speed = 2f;
+        Debug.Log("Enemy hgas recovered");
     }
 }
