@@ -104,6 +104,9 @@ public class SimonManager : MonoBehaviour
                 inputInSequence++;
 
                 if (inputInSequence >= activeSequence.Count)
+                {
+
+                }
             }
             else
             {
