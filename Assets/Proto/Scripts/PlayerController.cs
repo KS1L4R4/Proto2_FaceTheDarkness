@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
         //Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical")).normalized;
         //rb.linearVelocity = Vector3.up * Physics.gravity.y;
         Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),  rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
-        rb.linearVelocity = moveVector.normalized * playerSpeed;
+        Vector3 velocity = new Vector3(moveVector.x * playerSpeed,rb.linearVelocity.y,moveVector.z * playerSpeed);
 
         if (moveVector.magnitude >= 0.1f)
         {
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rb.linearVelocity = moveDir * playerSpeed;
+            rb.linearVelocity = new Vector3(moveDir.x * playerSpeed,rb.linearVelocity.y,moveDir.z * playerSpeed);
         }
 
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
