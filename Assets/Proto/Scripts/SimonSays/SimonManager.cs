@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class SimonManager : MonoBehaviour
@@ -44,6 +45,7 @@ public class SimonManager : MonoBehaviour
                 emissionOff = false;
           
                 colours[activeSequence[positionInSequence]].material.DisableKeyword("_EMISSION");
+                //buttonSounds[activeSequence[positionInSequence]].Stop();
                 shouldBeLit = false;
 
                 shouldBeDark = true;
@@ -68,6 +70,7 @@ public class SimonManager : MonoBehaviour
                 {
 
                     colours[activeSequence[positionInSequence]].material.EnableKeyword("_EMISSION");
+                    buttonSounds[activeSequence[positionInSequence]].Play();
 
                     stayLitCounter = stayLit;
 
@@ -92,6 +95,7 @@ public class SimonManager : MonoBehaviour
         activeSequence.Add(colourSelect);
 
         colours[activeSequence[positionInSequence]].material.EnableKeyword("_EMISSION");
+        buttonSounds[activeSequence[positionInSequence]].Play();
 
         stayLitCounter = stayLit;
 
@@ -120,6 +124,7 @@ public class SimonManager : MonoBehaviour
                     activeSequence.Add(colourSelect);
 
                     colours[activeSequence[positionInSequence]].material.EnableKeyword("_EMISSION");
+                    buttonSounds[activeSequence[positionInSequence]].Play();
 
                     stayLitCounter = stayLit;
 

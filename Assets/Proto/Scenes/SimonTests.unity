@@ -12059,7 +12059,14 @@ MonoBehaviour:
   - {fileID: 1025054767}
   - {fileID: 753078467}
   - {fileID: 1543803634}
-  stayLit: 2
+  buttonSounds:
+  - {fileID: 881555717}
+  - {fileID: 5905706}
+  - {fileID: 2016504621}
+  - {fileID: 1025054770}
+  - {fileID: 753078470}
+  - {fileID: 1543803637}
+  stayLit: 1
   waitBetweenLights: 0.25
   activeSequence: 
   correctAudio: {fileID: 1162440976}
