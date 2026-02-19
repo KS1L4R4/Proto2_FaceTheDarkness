@@ -8,11 +8,14 @@ public class P_PlatesController : MonoBehaviour
 
     private SimonManager simonManager;
 
+    private AudioSource theSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         plateMat = GetComponent<MeshRenderer>().material;
         simonManager = gameObject.transform.GetComponentInParent<SimonManager>();
+        theSound = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -26,6 +29,7 @@ public class P_PlatesController : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             plateMat.EnableKeyword("_EMISSION");
+            theSound.Play();
         }
     }
 
