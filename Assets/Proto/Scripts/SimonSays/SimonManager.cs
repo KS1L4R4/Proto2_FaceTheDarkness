@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class SimonManager : MonoBehaviour
 {
     public MeshRenderer[] colours;
+    public AudioSource[] buttonSounds;
 
     private int colourSelect;
     public float stayLit;
@@ -21,6 +22,9 @@ public class SimonManager : MonoBehaviour
 
     private bool simonGameActive;
     private int inputInSequence;
+
+    public AudioSource correctAudio;
+    public AudioSource incorrectAudio;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -78,6 +82,8 @@ public class SimonManager : MonoBehaviour
 
     public void StartSimonGame()
     {
+        activeSequence.Clear();
+
         positionInSequence = 0;
         inputInSequence = 0;
 
@@ -101,13 +107,34 @@ public class SimonManager : MonoBehaviour
             if (activeSequence[inputInSequence] == whichBtn)
             {
                 Debug.Log("Correccc");
+
                 inputInSequence++;
 
                 if (inputInSequence >= activeSequence.Count)
+                {
+                    positionInSequence = 0;
+                    inputInSequence = 0;
+
+                    colourSelect = Random.Range(0, colours.Length - 1);
+
+                    activeSequence.Add(colourSelect);
+
+                    colours[activeSequence[positionInSequence]].material.EnableKeyword("_EMISSION");
+
+                    stayLitCounter = stayLit;
+
+                    shouldBeLit = true;
+
+                    simonGameActive = false;
+
+                    correctAudio.Play();
+                }
             }
             else
             {
                 Debug.Log("Incorrec");
+                incorrectAudio.Play();
+                simonGameActive = false;
             }
 
         }
