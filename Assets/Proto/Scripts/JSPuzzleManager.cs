@@ -36,6 +36,8 @@ public class JSPuzzleManager : MonoBehaviour
     [SerializeField]
     private int piecesCorrect;
 
+    public AudioSource keyAudio;
+
     private void Start()
     {
         foreach (Texture2D texture in imageTextures)
@@ -255,6 +257,7 @@ public class JSPuzzleManager : MonoBehaviour
             if (piecesCorrect == pieces.Count)
             {
                 Debug.Log("Puzzle Complete!");
+                keyAudio.Play();
             }
         }
     }
