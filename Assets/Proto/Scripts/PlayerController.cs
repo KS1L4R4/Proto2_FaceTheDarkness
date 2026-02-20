@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         playerSpeed = 3f;
         playerRotation = 0.5f;
         loadingTime = 1f;
-        maxOil = 20f;
+        maxOil = 100f;
         oil = maxOil;
         oilRate = 1f;
         lightOn = false;
