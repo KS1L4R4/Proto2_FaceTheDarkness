@@ -17,8 +17,8 @@ public class PlayerInteractionManager : MonoBehaviour
     }
 
     private int activeLevCount = 0;
-    public Transform dropLocation;
-    public GameObject drop;
+    //public Transform dropLocation;
+    //public GameObject drop;
 
     public void ActivateLever()
     {
@@ -26,7 +26,7 @@ public class PlayerInteractionManager : MonoBehaviour
         Debug.Log("Lever activated");
 
 
-        if (activeLevCount == 3)
+        if (activeLevCount == 4)
         {
             DropItem();
             gameObject.SetActive(false);
@@ -36,6 +36,6 @@ public class PlayerInteractionManager : MonoBehaviour
 
     public void DropItem()
     {
-        Instantiate(drop, dropLocation.transform.position, Quaternion.identity);
+        //Instantiate(drop, dropLocation.transform.position, Quaternion.identity);
     }
 }
