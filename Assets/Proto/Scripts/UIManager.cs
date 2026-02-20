@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance; //Ya esta el singletonto >:D
     private GameObject mainMenuScreen;
     private GameObject chapterSelectionScreen;
     private GameObject levelSelectionScreen;
@@ -14,31 +15,46 @@ public class UIManager : MonoBehaviour
 
     public Image transitionImage;
 
+    private void Awake()
+    {
+        if(Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(this);
+        }
+    }
+
     void Start()
     {
         DontDestroyOnLoad(this);
-        mainMenuScreen = GameObject.Find("UIManager/UI_MainMenu");
+        mainMenuScreen = GameObject.Find("UIManager/UI_MainMenuScreen");
         chapterSelectionScreen = GameObject.Find("UIManager/UI_ChapterSelectionScreen");
         levelSelectionScreen = GameObject.Find("UIManager/UI_LevelSelectionScreen");
+
+        chapterSelectionScreen.SetActive(false);
+        levelSelectionScreen.SetActive(false);
+
         transitionImage.GetComponent<CanvasGroup>().alpha = 0f;
-        transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
-    public void TransitionScreenEffect()
+    public void TransitionScreenEffect(GameObject screenToHide, GameObject screenToShow)
     {
         Sequence s = DOTween.Sequence();
-        transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = true;
         s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
-        s.AppendInterval(1f);
+        s.AppendInterval(0.5f);
+        s.AppendCallback(() => screenToHide.SetActive(false));
+        s.AppendCallback(() => screenToShow.SetActive(true));
+        s.AppendInterval(0.5f);
         s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().DOFade(0, 0.7f));
         transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OpenMainMenuScene() //Abrir la escena del menú principal
     {
-        mainMenuScreen = GameObject.Find("UIManager/UI_MainMenu");
-        chapterSelectionScreen = GameObject.Find("UIManager/UI_ChapterSelectionScreen");
-        levelSelectionScreen = GameObject.Find("UIManager/UI_LevelSelectionScreen");
+        
     }
 
     public void OpenMainScreen() //Abrir la pantalla (UI) del menú principal
@@ -53,19 +69,18 @@ public class UIManager : MonoBehaviour
 
     public void OpenChapterSelectionScreen()
     {
-        if(mainMenuScreen != null)
+        if (mainMenuScreen != null && chapterSelectionScreen != null)
         {
-            
-        }
-        if(chapterSelectionScreen != null)
-        {
-            
+            TransitionScreenEffect(mainMenuScreen, chapterSelectionScreen);
         }
     }
 
     public void OpenLevelSelectionScreen()
     {
-
+        if (chapterSelectionScreen != null && levelSelectionScreen != null)
+        {
+            TransitionScreenEffect(chapterSelectionScreen, levelSelectionScreen);
+        }
     }
 
     public void ShowDefeatScreen()
