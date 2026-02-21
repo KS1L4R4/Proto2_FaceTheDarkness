@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.TextCore.Text;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class UIManager : MonoBehaviour
     private GameObject pauseMenuScreen;
     private GameObject defeatScreen;
     private GameObject victoryScreen;
+    private GameObject exitWarningScreen;
+    private GameObject characterSelectionScreen;
+    private GameObject storeScreen;
+
+    private GameObject previousScreen;
+    private GameObject currentScreen;
 
     public Image transitionImage;
 
@@ -33,9 +40,15 @@ public class UIManager : MonoBehaviour
         mainMenuScreen = GameObject.Find("UIManager/UI_MainMenuScreen");
         chapterSelectionScreen = GameObject.Find("UIManager/UI_ChapterSelectionScreen");
         levelSelectionScreen = GameObject.Find("UIManager/UI_LevelSelectionScreen");
+        exitWarningScreen = GameObject.Find("UIManager/UI_ExitWarningScreen");
+        characterSelectionScreen = GameObject.Find("UIManager/UI_CharacterSelectionScreen");
+        storeScreen = GameObject.Find("UIManager/UI_StoreScreen");
 
+        exitWarningScreen.SetActive(false);
         chapterSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
+        characterSelectionScreen.SetActive(false);
+        storeScreen.SetActive(false);
 
         transitionImage.GetComponent<CanvasGroup>().alpha = 0f;
     }
@@ -54,33 +67,64 @@ public class UIManager : MonoBehaviour
 
     public void OpenMainMenuScene() //Abrir la escena del menú principal
     {
-        
+        SceneManager.LoadScene("MainMenu");
     }
 
-    public void OpenMainScreen() //Abrir la pantalla (UI) del menú principal
+    public void ShowMainScreen() //Abrir la pantalla (UI) del menú principal
     {
         
     }
 
     public void ShowExitWarning()
     {
-        
+        exitWarningScreen.SetActive(true);
     }
 
-    public void OpenChapterSelectionScreen()
+    public void HideExitWarning()
+    {
+        exitWarningScreen.SetActive(false);
+    }
+
+    public void CloseGame()
+    {
+        Application.Quit();
+        Debug.Log("Game was closed");
+    }
+
+    public void ShowChapterSelectionScreen()
     {
         if (mainMenuScreen != null && chapterSelectionScreen != null)
         {
             TransitionScreenEffect(mainMenuScreen, chapterSelectionScreen);
         }
+        UpdateGoBack(chapterSelectionScreen, mainMenuScreen);
     }
 
-    public void OpenLevelSelectionScreen()
+    public void ShowLevelSelectionScreen()
     {
         if (chapterSelectionScreen != null && levelSelectionScreen != null)
         {
             TransitionScreenEffect(chapterSelectionScreen, levelSelectionScreen);
         }
+        UpdateGoBack(levelSelectionScreen, chapterSelectionScreen);
+    }
+
+    public void ShowCharacterSelectionScreen()
+    {
+        if (mainMenuScreen != null && characterSelectionScreen != null)
+        {
+            TransitionScreenEffect(mainMenuScreen, characterSelectionScreen);
+        }
+        UpdateGoBack(characterSelectionScreen, mainMenuScreen);
+    }
+
+    public void ShowStoreScreen()
+    {
+        if (mainMenuScreen != null && storeScreen != null)
+        {
+            TransitionScreenEffect(mainMenuScreen, storeScreen);
+        }
+        UpdateGoBack(storeScreen, mainMenuScreen);
     }
 
     public void ShowDefeatScreen()
@@ -96,6 +140,17 @@ public class UIManager : MonoBehaviour
     public void ShowMenuScreen()
     {
         
+    }
+
+    public void GoBack()
+    {
+        TransitionScreenEffect(currentScreen, previousScreen);
+    }
+
+    public void UpdateGoBack(GameObject current, GameObject previous)
+    {
+        currentScreen = current;
+        previousScreen = previous;
     }
 
     public void RetryLevel()
