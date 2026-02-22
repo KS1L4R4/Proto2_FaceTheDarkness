@@ -10,6 +10,9 @@ public class SimonManager : MonoBehaviour
     private int colourSelect;
     public float stayLit;
     private float stayLitCounter;
+
+    public int correctCounter;
+
     private bool emissionOff;
 
     public float waitBetweenLights;
@@ -27,11 +30,9 @@ public class SimonManager : MonoBehaviour
     public AudioSource correctAudio;
     public AudioSource incorrectAudio;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
+    [SerializeField] private AudioSource keyAudio;
+    [SerializeField] private GameObject smnComponents;
 
-    }
 
     // Update is called once per frame
     void Update()
@@ -113,8 +114,9 @@ public class SimonManager : MonoBehaviour
                 Debug.Log("Correccc");
 
                 inputInSequence++;
+                correctCounter++;
 
-                if (inputInSequence >= activeSequence.Count)
+                if (inputInSequence >= activeSequence.Count && activeSequence.Count < 4)
                 {
                     positionInSequence = 0;
                     inputInSequence = 0;
@@ -134,6 +136,12 @@ public class SimonManager : MonoBehaviour
 
                     correctAudio.Play();
                 }
+
+                if (correctCounter == 10)
+                {
+                    keyAudio.Play();
+                    StartCoroutine(PuzzleCompleteLogic());
+                }
             }
             else
             {
@@ -143,5 +151,12 @@ public class SimonManager : MonoBehaviour
             }
 
         }
+    }
+
+    IEnumerator PuzzleCompleteLogic()
+    {
+        yield return new WaitForSeconds(4f);
+
+        smnComponents.gameObject.SetActive(false);
     }
 }

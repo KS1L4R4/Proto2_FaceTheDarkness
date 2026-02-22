@@ -282,7 +282,7 @@ public class JSPuzzleManager : MonoBehaviour
 
     IEnumerator PuzzleCompleteLogic()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         jsComponents.gameObject.SetActive(false);
     }
 }
