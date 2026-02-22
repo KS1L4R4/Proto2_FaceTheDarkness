@@ -6,10 +6,6 @@ public class HealthManager : MonoBehaviour
     public UIManager uIManager;
     public PlayerController playerController;
 
-    //Enteros
-    public int playerHealth;
-    public int maxHealth;
-
     //Booleanos
     public bool isAlive;
 
@@ -18,8 +14,6 @@ public class HealthManager : MonoBehaviour
 
     void Start()
     {
-        maxHealth = 5;
-        playerHealth = maxHealth;
         isAlive = true;
         sanidad = 5f;
     }
