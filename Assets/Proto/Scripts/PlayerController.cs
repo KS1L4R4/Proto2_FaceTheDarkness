@@ -34,9 +34,12 @@ public class PlayerController : MonoBehaviour
     private string enemyTag = "Enemy";
     public Animator animator;
 
+    private UIManager uimanager;
+
     private void Awake()
     {
         fxVolume.profile.TryGet(out vignette);
+        uimanager = FindAnyObjectByType<UIManager>();
     }
 
     void Start()
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerInventory = GetComponent<PlayerInventory>();
         playerSpeed = 3f;
-        playerRotation = 0.5f;
+        playerRotation = 0.2f;
         loadingTime = 1f;
         maxOil = 100f;
         oil = maxOil;
@@ -56,35 +59,41 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (uimanager.pause != true)
+        {
+            Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
+            Vector3 velocity = new Vector3(moveVector.x * playerSpeed, rb.linearVelocity.y, moveVector.z * playerSpeed);
 
+            bool isMoving = moveVector.x != 0 || moveVector.z != 0;
+            bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
+
+            animator.SetBool("Walk", isMoving && !isRunning);
+            animator.SetBool("Run", isRunning);
+
+            if (moveVector.magnitude >= 0.1f)
+            {
+                float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + camara.rotation.eulerAngles.y;
+
+                float angle = Mathf.SmoothDampAngle(
+                    transform.eulerAngles.y,
+                    targetAngle,
+                    ref turnVelocity,
+                    playerRotation
+                );
+
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                rb.linearVelocity = new Vector3(moveDir.x * playerSpeed, rb.linearVelocity.y, moveDir.z * playerSpeed);
+            }
+        }
+        else
+        {
+            playerSpeed = 3f;
+        }
 
         //Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical")).normalized;
         //rb.linearVelocity = Vector3.up * Physics.gravity.y;
-        Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),  rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
-        Vector3 velocity = new Vector3(moveVector.x * playerSpeed,rb.linearVelocity.y,moveVector.z * playerSpeed);
-
-        bool isMoving = moveVector.x != 0 || moveVector.z != 0;
-        bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
-
-        animator.SetBool("Walk", isMoving && !isRunning);
-        animator.SetBool("Run", isRunning);
-
-        if (moveVector.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(moveVector.x, moveVector.z) * Mathf.Rad2Deg + camara.rotation.eulerAngles.y;
-
-            float angle = Mathf.SmoothDampAngle(
-                transform.eulerAngles.y,
-                targetAngle,
-                ref turnVelocity,
-                playerRotation
-            );
-
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            rb.linearVelocity = new Vector3(moveDir.x * playerSpeed,rb.linearVelocity.y,moveDir.z * playerSpeed);
-        }
 
         if (Input.GetKey(KeyCode.LeftShift)) //Player runs
         {
