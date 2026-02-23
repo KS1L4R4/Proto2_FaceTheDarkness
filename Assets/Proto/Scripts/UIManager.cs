@@ -10,7 +10,8 @@ public class UIManager : MonoBehaviour
     private GameObject mainMenuScreen;
     private GameObject chapterSelectionScreen;
     private GameObject levelSelectionScreen;
-    private GameObject pauseMenuScreen;
+    private GameObject pauseMenuScreenBack;
+    private GameObject pauseScreen;
     private GameObject defeatScreen;
     private GameObject victoryScreen;
     private GameObject exitWarningScreen;
@@ -22,16 +23,11 @@ public class UIManager : MonoBehaviour
 
     public Image transitionImage;
 
+    public bool pause;
+
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+
     }
 
     void Start()
@@ -43,14 +39,17 @@ public class UIManager : MonoBehaviour
         exitWarningScreen = GameObject.Find("UIManager/UI_ExitWarningScreen");
         characterSelectionScreen = GameObject.Find("UIManager/UI_CharacterSelectionScreen");
         storeScreen = GameObject.Find("UIManager/UI_StoreScreen");
-        pauseMenuScreen = GameObject.Find("UIManager/UI_PauseMenuScreen");
+        pauseMenuScreenBack = GameObject.Find("UIManager/UI_PauseMenuScreenBGND");
+        pauseScreen = GameObject.Find("UIManager/UI_PauseMenuScreen");
 
         exitWarningScreen.SetActive(false);
         chapterSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
         characterSelectionScreen.SetActive(false);
         storeScreen.SetActive(false);
-        pauseMenuScreen.SetActive(false);
+        pauseMenuScreenBack.SetActive(false);
+        pauseScreen.SetActive(false);
+        pause = false;
 
         transitionImage.GetComponent<CanvasGroup>().alpha = 0f;
     }
@@ -61,7 +60,14 @@ public class UIManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ShowMenuScreen();
+                if(pause == false)
+                {
+                    ShowMenuScreen();
+                }
+                else
+                {
+                    HideMenuScreen();
+                }
             }
         }
     }
@@ -82,6 +88,15 @@ public class UIManager : MonoBehaviour
     public void OpenMainMenuScene() //Abrir la escena del menú principal
     {
         SceneManager.LoadScene("MainMenu");
+
+        exitWarningScreen.SetActive(false);
+        chapterSelectionScreen.SetActive(false);
+        levelSelectionScreen.SetActive(false);
+        characterSelectionScreen.SetActive(false);
+        storeScreen.SetActive(false);
+        pauseMenuScreenBack.SetActive(false);
+        pauseScreen.SetActive(false);
+        pause = false;
     }
 
     public void ShowMainScreen() //Abrir la pantalla (UI) del menú principal
@@ -168,8 +183,16 @@ public class UIManager : MonoBehaviour
 
     public void ShowMenuScreen()
     {
-        pauseMenuScreen.SetActive(true);
-        Debug.Log("Menu should be showing");
+        pauseMenuScreenBack.SetActive(true);
+        pauseScreen.SetActive(true);
+        pause = true;
+    }
+
+    public void HideMenuScreen()
+    {
+        pauseMenuScreenBack.SetActive(false);
+        pauseScreen.SetActive(false);
+        pause = false;
     }
 
     public void GoBack()
