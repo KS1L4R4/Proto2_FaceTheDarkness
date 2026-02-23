@@ -8496,10 +8496,7 @@ MonoBehaviour:
   hudUi: {fileID: 96593370}
   defeatViewUi: {fileID: 1596293538}
   mainMenuUi: {fileID: 0}
-  bulletsAmmountTxt: {fileID: 305436294}
-  healthAmmountTxt: {fileID: 683917420}
   oilAmmount: {fileID: 1496207444}
-  sanity: {fileID: 1829653553}
 --- !u!1 &1148047678
 GameObject:
   m_ObjectHideFlags: 0
