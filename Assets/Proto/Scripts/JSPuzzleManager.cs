@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,8 @@ public class JSPuzzleManager : MonoBehaviour
     [SerializeField] private int difficulty = 6;
     [SerializeField] private Transform gameHolder;
     [SerializeField] private Transform piecePrefab;
-
+    [SerializeField] private Camera jsCam;
+    [SerializeField] private GameObject jsComponents;
 
     [Header("UI Elements")]
     [SerializeField] private List<Texture2D> imageTextures;
@@ -36,8 +38,13 @@ public class JSPuzzleManager : MonoBehaviour
     [SerializeField]
     private int piecesCorrect;
 
-    private void Start()
+    public AudioSource keyAudio;
+
+    private void OnEnable()
     {
+        Cursor.visible = true;
+        Camera.main.GetComponent<AudioListener>().enabled = false;
+
         foreach (Texture2D texture in imageTextures)
         {
             Image image = Instantiate(gameStarter, levelSelectPanel);
@@ -45,6 +52,12 @@ public class JSPuzzleManager : MonoBehaviour
             // Assign button action
             image.GetComponent<Button>().onClick.AddListener(delegate { StartGame(texture); });
         }
+    }
+
+    private void OnDisable()
+    {
+        Cursor.visible = false;
+        Camera.main.GetComponent<AudioListener>().enabled = true;
     }
 
     public void StartGame(Texture2D jigsawTexture)
@@ -135,7 +148,7 @@ public class JSPuzzleManager : MonoBehaviour
     private void Scatter()
     {
         // Calculate the visible orthographic size of the screen
-        float orthoHeight = Camera.main.orthographicSize;
+        float orthoHeight = jsCam.orthographicSize;
         float screenAspect = (float)Screen.width / Screen.height;
         float orthoWidth = orthoHeight * screenAspect;
 
@@ -183,7 +196,7 @@ public class JSPuzzleManager : MonoBehaviour
     //Crear rayo hacia el mouse
     private Ray MouseRaycast()
     {
-        return Camera.main.ScreenPointToRay(Input.mousePosition);
+        return jsCam.ScreenPointToRay(Input.mousePosition);
     }
 
     private void Update()
@@ -217,7 +230,7 @@ public class JSPuzzleManager : MonoBehaviour
         // Set the dragged piece position to the position of the mouse
         if (draggingPiece)
         {
-            float distanceToPiece = Vector3.Distance(Camera.main.transform.position, draggingPiece.position);
+            float distanceToPiece = Vector3.Distance(jsCam.transform.position, draggingPiece.position);
             Vector3 newPosition = MouseRaycast().GetPoint(distanceToPiece);
 
             //newPosition += offset;
@@ -255,6 +268,8 @@ public class JSPuzzleManager : MonoBehaviour
             if (piecesCorrect == pieces.Count)
             {
                 Debug.Log("Puzzle Complete!");
+                keyAudio.Play();
+                StartCoroutine(PuzzleCompleteLogic());
             }
         }
     }
@@ -262,6 +277,14 @@ public class JSPuzzleManager : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.25f);
+        Gizmos.DrawWireSphere(jsCam.ScreenToWorldPoint(Input.mousePosition), 0.25f);
+    }
+
+    IEnumerator PuzzleCompleteLogic()
+    {
+        yield return new WaitForSeconds(4f);
+        jsComponents.gameObject.SetActive(false);
     }
 }
+
+

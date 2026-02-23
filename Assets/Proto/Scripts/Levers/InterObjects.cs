@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events; //Importar eventos
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,6 +8,7 @@ public class InterObjects : MonoBehaviour
     // The base class for all interactuable objects
     protected PlayerController playerCtrl;
     protected Collider interactableCollider;
+    public UnityEvent onInteractEvent; //crear el evento
 
     [SerializeField] protected GameObject interactableCanvas;
 
@@ -40,7 +42,7 @@ public class InterObjects : MonoBehaviour
     protected virtual void Interact(PlayerController player)
     {
         Debug.Log("You interacted");
-        PlayerInteractionManager.Instance.ActivateLever();
+        onInteractEvent.Invoke();  //Invocar el evento
         gameObject.SetActive(false);
     }
 }
