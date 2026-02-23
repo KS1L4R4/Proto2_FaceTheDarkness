@@ -17,6 +17,7 @@ public class PlayerInteractionManager : MonoBehaviour
     }
 
     private int activeLevCount = 0;
+    [SerializeField] private AudioSource exitOpenSound;
     //public Transform dropLocation;
     //public GameObject drop;
 
@@ -28,9 +29,8 @@ public class PlayerInteractionManager : MonoBehaviour
 
         if (activeLevCount == 4)
         {
-            DropItem();
-            gameObject.SetActive(false);
-            return;
+            exitOpenSound.Play();
+            //OpenExit();
         }
     }
 
