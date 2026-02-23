@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public float smoothtime = 5f;
     public float turnVelocity;
     private string enemyTag = "Enemy";
+    public Animator animator;
 
     private void Awake()
     {
@@ -60,6 +62,12 @@ public class PlayerController : MonoBehaviour
         //rb.linearVelocity = Vector3.up * Physics.gravity.y;
         Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),  rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
         Vector3 velocity = new Vector3(moveVector.x * playerSpeed,rb.linearVelocity.y,moveVector.z * playerSpeed);
+
+        bool isMoving = moveVector.x != 0 || moveVector.z != 0;
+        bool isRunning = isMoving && Input.GetKey(KeyCode.LeftShift);
+
+        animator.SetBool("Walk", isMoving && !isRunning);
+        animator.SetBool("Run", isRunning);
 
         if (moveVector.magnitude >= 0.1f)
         {

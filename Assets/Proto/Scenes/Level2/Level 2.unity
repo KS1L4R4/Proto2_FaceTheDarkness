@@ -629,6 +629,10 @@ PrefabInstance:
       propertyPath: HorizontalAxis.Value
       value: 164
       objectReference: {fileID: 0}
+    - target: {fileID: 4287032035344333744, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4950206982201499278, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: m_AdditionalLightsShadowResolutionTier
       value: 0
@@ -677,6 +681,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7507278748459023103, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 75480532}
     - target: {fileID: 7507278748459023103, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: fxVolume
       value: 
@@ -3155,6 +3163,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 72299408}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &75480532 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4287032035344333744, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
+  m_PrefabInstance: {fileID: 10472391}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &79690346
 GameObject:
   m_ObjectHideFlags: 0
