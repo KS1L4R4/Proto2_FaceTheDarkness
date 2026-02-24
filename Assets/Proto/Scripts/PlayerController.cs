@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
         lightOn = false;
         lamp.enabled = false;
         vignette.intensity.value = 0.2f;
+
+        Cursor.visible = false;
     }
 
     void Update()
