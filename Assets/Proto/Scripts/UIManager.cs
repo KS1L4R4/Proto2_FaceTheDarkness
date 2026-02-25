@@ -6,7 +6,7 @@ using UnityEngine.TextCore.Text;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance; //Ya esta el singletonto >:D
+    public static UIManager Instance;
     private GameObject mainMenuScreen;
     private GameObject chapterSelectionScreen;
     private GameObject levelSelectionScreen;
@@ -32,7 +32,6 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        DontDestroyOnLoad(this);
         mainMenuScreen = GameObject.Find("UIManager/UI_MainMenuScreen");
         chapterSelectionScreen = GameObject.Find("UIManager/UI_ChapterSelectionScreen");
         levelSelectionScreen = GameObject.Find("UIManager/UI_LevelSelectionScreen");
@@ -42,6 +41,10 @@ public class UIManager : MonoBehaviour
         pauseMenuScreenBack = GameObject.Find("UIManager/UI_PauseMenuScreenBGND");
         pauseScreen = GameObject.Find("UIManager/UI_PauseMenuScreen");
 
+        if(SceneManager.GetActiveScene().name != "MainMenu")
+        {
+            mainMenuScreen.SetActive(false);
+        }
         exitWarningScreen.SetActive(false);
         chapterSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
@@ -49,9 +52,16 @@ public class UIManager : MonoBehaviour
         storeScreen.SetActive(false);
         pauseMenuScreenBack.SetActive(false);
         pauseScreen.SetActive(false);
-        pause = false;
 
-        transitionImage.GetComponent<CanvasGroup>().alpha = 0f;
+        pause = false;
+        
+        if(transitionImage != null)
+        {
+            if(transitionImage.GetComponent<CanvasGroup>() != null)
+            {
+                transitionImage.GetComponent<CanvasGroup>().alpha = 0f;
+            }
+        }
     }
 
     private void Update()
@@ -74,15 +84,18 @@ public class UIManager : MonoBehaviour
 
     public void TransitionScreenEffect(GameObject screenToHide, GameObject screenToShow)
     {
-        Sequence s = DOTween.Sequence();
-        s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = true);
-        s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
-        s.AppendInterval(0.5f);
-        s.AppendCallback(() => screenToHide.SetActive(false));
-        s.AppendCallback(() => screenToShow.SetActive(true));
-        s.AppendInterval(0.5f);
-        s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().DOFade(0, 0.7f));
-        s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = false);
+        if (transitionImage.GetComponent<CanvasGroup>() != null)
+        {
+            Sequence s = DOTween.Sequence();
+            s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = true);
+            s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().DOFade(1, 0.5f));
+            s.AppendInterval(0.5f);
+            s.AppendCallback(() => screenToHide.SetActive(false));
+            s.AppendCallback(() => screenToShow.SetActive(true));
+            s.AppendInterval(0.5f);
+            s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().DOFade(0, 0.7f));
+            s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = false);
+        }
     }
 
     public void OpenMainMenuScene() //Abrir la escena del menú principal
@@ -220,5 +233,31 @@ public class UIManager : MonoBehaviour
     public void RetryLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    //Opciones de framerate
+    public void SetFramerateTo30()
+    {
+        Application.targetFrameRate = 30;
+    }
+    public void SetFramerateTo60()
+    {
+        Application.targetFrameRate = 60;
+    }
+    public void SetFramerateTo90()
+    {
+        Application.targetFrameRate = 90;
+    }
+    public void SetFramerateTo120()
+    {
+        Application.targetFrameRate = 120;
+    }
+    public void SetFramerateTo144()
+    {
+        Application.targetFrameRate = 144;
+    }
+    public void SetFramerateTo165()
+    {
+        Application.targetFrameRate = 165;
     }
 }
