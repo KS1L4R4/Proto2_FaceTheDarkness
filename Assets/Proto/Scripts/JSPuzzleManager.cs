@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class JSPuzzleManager : MonoBehaviour
     [SerializeField] private Transform gameHolder;
     [SerializeField] private Transform piecePrefab;
     [SerializeField] private Camera jsCam;
+    [SerializeField] private Camera mainCam;
     [SerializeField] private GameObject jsComponents;
 
     [Header("UI Elements")]
@@ -43,7 +45,7 @@ public class JSPuzzleManager : MonoBehaviour
     private void OnEnable()
     {
         Cursor.visible = true;
-        Camera.main.GetComponent<AudioListener>().enabled = false;
+        mainCam.GetComponent<AudioListener>().enabled = false;
 
         foreach (Texture2D texture in imageTextures)
         {
@@ -57,7 +59,7 @@ public class JSPuzzleManager : MonoBehaviour
     private void OnDisable()
     {
         Cursor.visible = false;
-        Camera.main.GetComponent<AudioListener>().enabled = true;
+        mainCam.GetComponent<AudioListener>().enabled = true;
     }
 
     public void StartGame(Texture2D jigsawTexture)
