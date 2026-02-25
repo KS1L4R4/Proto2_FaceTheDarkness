@@ -639,11 +639,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6266030371951005020, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.00651
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6266030371951005020, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.7
+      value: -161.8
       objectReference: {fileID: 0}
     - target: {fileID: 6266030371951005020, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -16150,7 +16150,7 @@ Transform:
   m_GameObject: {fileID: 340995389}
   serializedVersion: 2
   m_LocalRotation: {x: 0.021583637, y: 0.9781521, z: 0.15724899, w: -0.13425894}
-  m_LocalPosition: {x: 6.813082, y: 0.7465099, z: 9.034216}
+  m_LocalPosition: {x: 6.813082, y: 0.7399999, z: -159.46579}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83211,7 +83211,7 @@ Transform:
   m_GameObject: {fileID: 1869642578}
   serializedVersion: 2
   m_LocalRotation: {x: 0.021583637, y: 0.9781521, z: 0.15724899, w: -0.13425894}
-  m_LocalPosition: {x: 6.813082, y: 0.7465099, z: 9.034216}
+  m_LocalPosition: {x: 6.813082, y: 0.7399999, z: -159.46579}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -86105,7 +86105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1947051047
 Transform:
   m_ObjectHideFlags: 0
@@ -89431,7 +89431,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2025648147}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -92031,7 +92031,7 @@ MonoBehaviour:
   gameHolder: {fileID: 1111015896}
   piecePrefab: {fileID: 7206840791388910351, guid: 656d2f4df5881534987662acded0abb6, type: 3}
   jsCam: {fileID: 1698366509}
-  mainCam: {fileID: 0}
+  mainCam: {fileID: 1869642581}
   jsComponents: {fileID: 1947051046}
   imageTextures:
   - {fileID: 2800000, guid: 60d26d16a5bc7c64b98322c5efdd6afb, type: 3}
