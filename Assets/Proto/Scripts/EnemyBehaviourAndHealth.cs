@@ -7,9 +7,11 @@ using UnityEngine.Rendering;
 public class EnemyBehaviourAndHealth : MonoBehaviour
 {
     private NavMeshAgent navMesh;
+    private Animator enemyAnimator;
     private Vector3 startingPosition;
     private string targetTag = "Player";
     private bool playerCaught = false;
+    private bool playerSpotted = false;
     private bool stunned = false;
     private float maxWanderingTries = 5f;
     private float wanderingRadius = 100f;
@@ -22,6 +24,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     void Start()
     {
         navMesh = GetComponent<NavMeshAgent>();
+        enemyAnimator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -32,8 +35,14 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
             if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
             {
 		    	navMesh.SetDestination(GetWanderingPoint());
-		    }
+            }
+            SetAnimation();
         }
+    }
+
+    private void Update()
+    {
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -67,6 +76,11 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
                     Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
                     ChasePlayer();
                     navMesh.speed = 3.5f;
+                    playerSpotted = true;
+                }
+                else
+                {
+                    playerSpotted = false;
                 }
             }
             else
@@ -105,6 +119,17 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         StartCoroutine(enemyStun());
     }
 
+    private void SetAnimation()
+    {
+        if (playerSpotted == true)
+        {
+            enemyAnimator.SetBool("IsChasing", true);
+        }
+        else
+        {
+            enemyAnimator.SetBool("IsChasing", false);
+        }
+    }
     IEnumerator enemyStun()
     {
         stunned = true;
