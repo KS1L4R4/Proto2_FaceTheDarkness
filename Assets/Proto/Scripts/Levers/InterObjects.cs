@@ -25,7 +25,7 @@ public class InterObjects : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerCtrl = other.GetComponent<PlayerController>();
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Interact(playerCtrl);
             }
