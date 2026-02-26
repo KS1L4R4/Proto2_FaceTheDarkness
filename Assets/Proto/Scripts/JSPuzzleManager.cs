@@ -284,6 +284,7 @@ public class JSPuzzleManager : MonoBehaviour
 
     IEnumerator PuzzleCompleteLogic()
     {
+        MessageManager.Instance.ShowKeyAppearedMessage();
         yield return new WaitForSeconds(4f);
         jsComponents.gameObject.SetActive(false);
     }

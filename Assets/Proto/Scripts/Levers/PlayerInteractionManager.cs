@@ -17,6 +17,7 @@ public class PlayerInteractionManager : MonoBehaviour
     }
 
     private int activeLevCount = 0;
+    public int missingLevers;
     [SerializeField] private AudioSource exitOpenSound;
     //public Transform dropLocation;
     //public GameObject drop;
@@ -24,13 +25,21 @@ public class PlayerInteractionManager : MonoBehaviour
     public void ActivateLever()
     {
         activeLevCount++;
-        Debug.Log("Lever activated");
 
+        missingLevers--;
+
+        Debug.Log("Lever activated");
 
         if (activeLevCount == 4)
         {
             exitOpenSound.Play();
+            MessageManager.Instance.ShowExitOpenedMessage();
             //OpenExit();
+        }
+        else
+        {
+            MessageManager.Instance.UpdateLeversLeftText(missingLevers);
+            MessageManager.Instance.ShowLeversLeftText();
         }
     }
 
