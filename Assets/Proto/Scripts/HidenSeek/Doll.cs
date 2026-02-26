@@ -37,6 +37,7 @@ public class Doll : MonoBehaviour
             if (found == 3)
             {
                 DropItem();
+                MessageManager.Instance.ShowKeyAppearedMessage();
                 gameObject.SetActive(false);
                 return;
             }
