@@ -155,8 +155,8 @@ public class SimonManager : MonoBehaviour
 
     IEnumerator PuzzleCompleteLogic()
     {
+        MessageManager.Instance.ShowKeyAppearedMessage();
         yield return new WaitForSeconds(4f);
-
         smnComponents.gameObject.SetActive(false);
     }
 }
