@@ -32,17 +32,16 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         if(playerCaught == false && stunned == false)
         {
             LookForPlayer();
-            if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
-            {
-		    	navMesh.SetDestination(GetWanderingPoint());
-            }
-            SetAnimation();
         }
     }
 
     private void Update()
     {
-
+        if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
+        {
+	    	ChasePlayer();
+        }
+        SetAnimation();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -74,7 +73,6 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
                 if (hit.collider.CompareTag(targetTag))
                 {
                     Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
-                    ChasePlayer();
                     navMesh.speed = 3.5f;
                     playerSpotted = true;
                 }
@@ -90,7 +88,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         }
     }
 
-    private Vector3 GetWanderingPoint()
+    /*private Vector3 GetWanderingPoint()
     {
         navMesh.speed = 2f;
         NavMeshHit hit;
@@ -105,14 +103,14 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
             }
         }
         return newDestination;
-    }
+    }*/
 
-    private Vector3 SetRandomDestination()
+    /*private Vector3 SetRandomDestination()
     {
         Vector3 randomPoint = Random.insideUnitSphere * wanderingRadius;
         randomPoint += transform.position;
         return randomPoint;
-    }
+    }*/
 
     public void StartStun()
     {
