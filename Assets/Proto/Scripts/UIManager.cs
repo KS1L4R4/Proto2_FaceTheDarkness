@@ -73,10 +73,12 @@ public class UIManager : MonoBehaviour
                 if(pause == false)
                 {
                     ShowMenuScreen();
+                    Cursor.visible = true;
                 }
                 else
                 {
                     HideMenuScreen();
+                    Cursor.visible = false;
                 }
             }
         }

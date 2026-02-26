@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         vignette.intensity.value = 0.2f;
 
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
