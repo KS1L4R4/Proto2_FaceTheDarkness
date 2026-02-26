@@ -17,6 +17,7 @@ public class InterObjects : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             interactableCanvas.SetActive(true);
+            playerCtrl = other.GetComponent<PlayerController>();
         }
     }
 
@@ -24,9 +25,9 @@ public class InterObjects : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerCtrl = other.GetComponent<PlayerController>();
             if (Input.GetKeyDown(KeyCode.E))
             {
+                print("jghfgljfrjk");
                 Interact(playerCtrl);
             }
         }
