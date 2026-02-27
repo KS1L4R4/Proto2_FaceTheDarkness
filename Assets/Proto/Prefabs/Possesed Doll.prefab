@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5926654588556373131}
   - component: {fileID: 1390382292985717507}
   - component: {fileID: 3767319131842616793}
+  - component: {fileID: 8728633238650004860}
   m_Layer: 0
   m_Name: Possesed Doll
   m_TagString: Untagged
@@ -50,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38b7e87f6e05744aa75a8361ebac942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Doll
+  found: 2
   drop: {fileID: 233764168317388174, guid: a0df64baa4c6442449ca664492f3b4e7, type: 3}
   locationTargets:
   - {fileID: 0}
@@ -60,6 +62,7 @@ MonoBehaviour:
   - {fileID: 0}
   dropLocation: {fileID: 5542537534467207736}
   player: {fileID: 0}
+  animator: {fileID: 2237259512971927413}
 --- !u!136 &5926654588556373131
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -203,6 +206,28 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!95 &8728633238650004860
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289778406818376734}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a3b6fbdf5d2e82e4db1b4835779aa196, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4954738248228089667
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ public class Doll : MonoBehaviour
     public Transform dropLocation;
     public Transform player;
     AudioSource laugh;
+    public Animator animator;
 
     public void Start()
     {
@@ -68,6 +69,12 @@ public class Doll : MonoBehaviour
             laugh.Stop();
         }
     }
+    /*public void Disapear()
+    {
+        DropItem();
+                MessageManager.Instance.ShowKeyAppearedMessage();
+        gameObject.SetActive(false);
+    } */
 }
 
 //Sound Effect by <a href="https://pixabay.com/users/phatphrogstudio-54178146/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=477944">PhatPhrogStudio</a> from <a href="https://pixabay.com//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=477944">Pixabay</a>
