@@ -51,7 +51,7 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   rayCount: 15
   viewDistance: 20
-  viewAngle: 65
+  viewAngle: 130
 --- !u!195 &1829702770152560271
 NavMeshAgent:
   m_ObjectHideFlags: 0
