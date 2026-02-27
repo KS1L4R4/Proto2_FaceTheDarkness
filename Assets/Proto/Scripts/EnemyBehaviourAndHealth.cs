@@ -43,10 +43,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 
     private void Update()
     {
-        if (!navMesh.pathPending && navMesh.remainingDistance <= navMesh.stoppingDistance)
-        {
-	    	ChasePlayer();
-        }
+    	ChasePlayer();
         SetAnimation();
         if(uIManager.pause == true)
         {
