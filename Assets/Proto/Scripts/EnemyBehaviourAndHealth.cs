@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class EnemyBehaviourAndHealth : MonoBehaviour
 {
     private NavMeshAgent navMesh;
+    private UIManager uIManager;
     private Animator enemyAnimator;
     private Vector3 startingPosition;
     private string targetTag = "Player";
@@ -15,6 +16,8 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private bool stunned = false;
     private float maxWanderingTries = 5f;
     private float wanderingRadius = 100f;
+    private float enemySpeed;
+
 
     public Transform targetPlayer;
     public int rayCount;
@@ -25,6 +28,9 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     {
         navMesh = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
+        uIManager = FindAnyObjectByType<UIManager>();
+        enemySpeed = 2f;
+        navMesh.speed = enemySpeed;
     }
 
     void FixedUpdate()
@@ -42,6 +48,14 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 	    	ChasePlayer();
         }
         SetAnimation();
+        if(uIManager.pause == true)
+        {
+            navMesh.speed = 0f;
+        }
+        else
+        {
+            navMesh.speed = enemySpeed;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -73,11 +87,12 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
                 if (hit.collider.CompareTag(targetTag))
                 {
                     Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
-                    navMesh.speed = 3.5f;
+                    enemySpeed = 3.5f;
                     playerSpotted = true;
                 }
                 else
                 {
+                    enemySpeed = 2f;
                     playerSpotted = false;
                 }
             }
@@ -87,30 +102,6 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
             }
         }
     }
-
-    /*private Vector3 GetWanderingPoint()
-    {
-        navMesh.speed = 2f;
-        NavMeshHit hit;
-        Vector3 newDestination = startingPosition;
-        for (int i = 0; i < maxWanderingTries; i++)
-        {
-            Vector3 randomPoint = SetRandomDestination();
-            if(NavMesh.SamplePosition(randomPoint, out hit, wanderingRadius, 1))
-            {
-                newDestination = hit.position;
-                break;
-            }
-        }
-        return newDestination;
-    }*/
-
-    /*private Vector3 SetRandomDestination()
-    {
-        Vector3 randomPoint = Random.insideUnitSphere * wanderingRadius;
-        randomPoint += transform.position;
-        return randomPoint;
-    }*/
 
     public void StartStun()
     {
