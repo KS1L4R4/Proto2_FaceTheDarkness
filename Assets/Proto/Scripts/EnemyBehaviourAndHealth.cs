@@ -14,8 +14,6 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private bool playerCaught = false;
     private bool playerSpotted = false;
     private bool stunned = false;
-    private float maxWanderingTries = 5f;
-    private float wanderingRadius = 100f;
     private float enemySpeed;
 
 
@@ -60,6 +58,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         if (collision.collider.CompareTag(targetTag))
         {
             playerCaught = true;
+            uIManager.ShowDefeatScreen();
         }
     }
 
