@@ -17,18 +17,13 @@ public class UIManager : MonoBehaviour
     private GameObject exitWarningScreen;
     private GameObject characterSelectionScreen;
     private GameObject storeScreen;
-
     private GameObject previousScreen;
     private GameObject currentScreen;
 
     public Image transitionImage;
 
     public bool pause;
-
-    private void Awake()
-    {
-
-    }
+    public bool playerCaught;
 
     void Start()
     {
@@ -40,6 +35,7 @@ public class UIManager : MonoBehaviour
         storeScreen = GameObject.Find("UIManager/UI_StoreScreen");
         pauseMenuScreenBack = GameObject.Find("UIManager/UI_PauseMenuScreenBGND");
         pauseScreen = GameObject.Find("UIManager/UI_PauseMenuScreen");
+        defeatScreen = GameObject.Find("UIManager/UI_DefeatScreen");
 
         if(SceneManager.GetActiveScene().name != "MainMenu")
         {
@@ -52,8 +48,10 @@ public class UIManager : MonoBehaviour
         storeScreen.SetActive(false);
         pauseMenuScreenBack.SetActive(false);
         pauseScreen.SetActive(false);
+        defeatScreen.SetActive(false);
 
         pause = false;
+        playerCaught = false;
         
         if(transitionImage != null)
         {
@@ -134,16 +132,6 @@ public class UIManager : MonoBehaviour
         Application.Quit();
     }
 
-    /*public void ShowChapterSelectionScreen()
-    {
-        if (mainMenuScreen != null && chapterSelectionScreen != null)
-        {
-            currentScreen = chapterSelectionScreen;
-            previousScreen = mainMenuScreen;
-            TransitionScreenEffect(mainMenuScreen, chapterSelectionScreen);
-        }
-    }*/
-
     public void ShowLevelSelectionScreen()
     {
         if (mainMenuScreen != null && levelSelectionScreen != null)
@@ -188,7 +176,9 @@ public class UIManager : MonoBehaviour
 
     public void ShowDefeatScreen()
     {
-        
+        defeatScreen.SetActive(true);
+        Cursor.visible = true;
+        playerCaught = true;
     }
 
     public void ShowVictoryScreen()
