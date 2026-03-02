@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         playerInventory = GetComponent<PlayerInventory>();
         playerSpeed = 3f;
-        playerRotation = 0.2f;
+        playerRotation = 0.1f;
         loadingTime = 1f;
         maxOil = 100f;
         oil = maxOil;
@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour
         //Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical")).normalized;
         //rb.linearVelocity = Vector3.up * Physics.gravity.y;
 
-        if (Input.GetKey(KeyCode.LeftShift)) //Player runs
+        if (Input.GetKey(KeyCode.LeftShift))//Player runs
         {
             playerSpeed = 5f;
         }

@@ -1,8 +1,7 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using DG.Tweening;
-using UnityEngine.TextCore.Text;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,11 +18,14 @@ public class UIManager : MonoBehaviour
     private GameObject storeScreen;
     private GameObject previousScreen;
     private GameObject currentScreen;
+    private GameObject settingsCreen;
 
     public Image transitionImage;
 
     public bool pause;
     public bool playerCaught;
+
+    private bool isWindowed;
 
     void Start()
     {
@@ -36,39 +38,55 @@ public class UIManager : MonoBehaviour
         pauseMenuScreenBack = GameObject.Find("UIManager/UI_PauseMenuScreenBGND");
         pauseScreen = GameObject.Find("UIManager/UI_PauseMenuScreen");
         defeatScreen = GameObject.Find("UIManager/UI_DefeatScreen");
+        settingsCreen = GameObject.Find("UIManager/UI_SettingsScreen");
 
-        if(SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             mainMenuScreen.SetActive(false);
         }
         exitWarningScreen.SetActive(false);
-        chapterSelectionScreen.SetActive(false);
+        if (chapterSelectionScreen != null)
+        {
+            chapterSelectionScreen.SetActive(false);
+        }
         levelSelectionScreen.SetActive(false);
         characterSelectionScreen.SetActive(false);
         storeScreen.SetActive(false);
         pauseMenuScreenBack.SetActive(false);
         pauseScreen.SetActive(false);
         defeatScreen.SetActive(false);
+        settingsCreen.SetActive(false);
 
         pause = false;
         playerCaught = false;
-        
-        if(transitionImage != null)
+
+        if (transitionImage != null)
         {
-            if(transitionImage.GetComponent<CanvasGroup>() != null)
+            if (transitionImage.GetComponent<CanvasGroup>() != null)
             {
                 transitionImage.GetComponent<CanvasGroup>().alpha = 0f;
             }
         }
+
+        if (Screen.fullScreenMode == FullScreenMode.Windowed)
+        {
+            isWindowed = true;
+        }
+        else
+        {
+            isWindowed = false;
+        }
+
+            SetFramerateTo60();
     }
 
     private void Update()
     {
-        if(SceneManager.GetActiveScene().name != "MainMenu")
+        if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if(pause == false)
+                if (pause == false)
                 {
                     ShowMenuScreen();
                     Cursor.visible = true;
@@ -114,7 +132,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowMainScreen() //Abrir la pantalla (UI) del menú principal
     {
-        
+
     }
 
     public void ShowExitWarning()
@@ -162,6 +180,13 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowSettingsScreen()
+    {
+        currentScreen = settingsCreen;
+        previousScreen = mainMenuScreen;
+        TransitionScreenEffect(mainMenuScreen, settingsCreen);
+    }
+
     public void OpenFirstLevel()
     {
         levelSelectionScreen.SetActive(false);
@@ -183,7 +208,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowVictoryScreen()
     {
-        
+
     }
 
     public void ShowMenuScreen()
@@ -227,7 +252,7 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    //Opciones de framerate
+    //Framerates
     public void SetFramerateTo30()
     {
         Application.targetFrameRate = 30;
@@ -251,5 +276,31 @@ public class UIManager : MonoBehaviour
     public void SetFramerateTo165()
     {
         Application.targetFrameRate = 165;
+    }
+
+    //Display modes
+    public void SetWindowedDisplay()
+    {
+        Screen.fullScreenMode = FullScreenMode.Windowed;
+        isWindowed = false;
+    }
+    public void SetFullscreenDisplay()
+    {
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        isWindowed = true;
+    }
+
+    //Resolutions
+    public void SetResolution720()
+    {
+        Screen.SetResolution(1280, 720, isWindowed);
+    }
+    public void SetResolution1080()
+    {
+        Screen.SetResolution(1920, 1080, isWindowed);
+    }
+    public void SetResolution1440()
+    {
+        Screen.SetResolution(2560, 1440, isWindowed);
     }
 }
