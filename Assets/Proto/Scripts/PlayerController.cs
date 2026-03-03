@@ -7,7 +7,6 @@ public class PlayerController : MonoBehaviour
 {
     //Elementos de la escena
     private PlayerInventory playerInventory;
-    private PlayerInventory inventory;
     public EnemyBehaviourAndHealth enemyBehaviour;
     public Rigidbody rb;
     public HealthManager healthManager;
@@ -164,13 +163,13 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-        for(int i = 0; i < inventory.pickablesList.Count; i++)
+        for(int i = 0; i < playerInventory.pickablesList.Count; i++)
         {
-            InteractuableDesignator key = inventory.pickablesList[i];
+            InteractuableDesignator key = playerInventory.pickablesList[i];
             if(key.Designation == door.requiredKey)
             {
                 door.OpenDoor();
-                inventory.RemovePickable(key);
+                playerInventory.RemovePickable(key);
                 return;
             }
         }

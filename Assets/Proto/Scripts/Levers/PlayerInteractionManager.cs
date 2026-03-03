@@ -19,6 +19,7 @@ public class PlayerInteractionManager : MonoBehaviour
     private int activeLevCount = 0;
     public int missingLevers;
     [SerializeField] private AudioSource exitOpenSound;
+    [SerializeField] private GameObject exitDoors;
     //public Transform dropLocation;
     //public GameObject drop;
 
@@ -34,6 +35,7 @@ public class PlayerInteractionManager : MonoBehaviour
         {
             exitOpenSound.Play();
             MessageManager.Instance.ShowExitOpenedMessage();
+            exitDoors.SetActive(false);
             //OpenExit();
         }
         else
@@ -41,10 +43,5 @@ public class PlayerInteractionManager : MonoBehaviour
             MessageManager.Instance.UpdateLeversLeftText(missingLevers);
             MessageManager.Instance.ShowLeversLeftText();
         }
-    }
-
-    public void DropItem()
-    {
-        //Instantiate(drop, dropLocation.transform.position, Quaternion.identity);
     }
 }

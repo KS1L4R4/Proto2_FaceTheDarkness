@@ -42,6 +42,9 @@ public class JSPuzzleManager : MonoBehaviour
 
     public AudioSource keyAudio;
 
+    [SerializeField] private GameObject keyPrefab;
+    [SerializeField] private Transform keySpawnPoint;
+
     private void OnEnable()
     {
         Cursor.visible = true;

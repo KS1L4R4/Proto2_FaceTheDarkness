@@ -32,6 +32,8 @@ public class SimonManager : MonoBehaviour
 
     [SerializeField] private AudioSource keyAudio;
     [SerializeField] private GameObject smnComponents;
+    [SerializeField] private GameObject keyPrefab;
+    [SerializeField] private Transform keySpawnPoint;
 
 
     // Update is called once per frame
@@ -107,7 +109,7 @@ public class SimonManager : MonoBehaviour
 
     public void ColourPressed(int whichBtn)
     {
-        if(simonGameActive = true)
+        if(simonGameActive == true)
         {
             if (activeSequence[inputInSequence] == whichBtn)
             {
@@ -140,6 +142,7 @@ public class SimonManager : MonoBehaviour
                 if (correctCounter == 10)
                 {
                     keyAudio.Play();
+                    Instantiate(keyPrefab, keySpawnPoint.position, Quaternion.identity);
                     StartCoroutine(PuzzleCompleteLogic());
                 }
             }
