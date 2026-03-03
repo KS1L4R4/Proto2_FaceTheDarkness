@@ -109,7 +109,7 @@ public class SimonManager : MonoBehaviour
 
     public void ColourPressed(int whichBtn)
     {
-        if(simonGameActive = true)
+        if(simonGameActive == true)
         {
             if (activeSequence[inputInSequence] == whichBtn)
             {
