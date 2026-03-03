@@ -27,7 +27,6 @@ public class InterObjects : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                print("jghfgljfrjk");
                 Interact(playerCtrl);
             }
         }
