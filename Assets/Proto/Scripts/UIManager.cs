@@ -1,11 +1,18 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    [SerializeField] private List<Image> oilIcons;
+    [SerializeField] private List<Image> lavenderIcons;
+    [SerializeField] private Image sanityBar;
+
+    private PlayerInventory inventory;
+    private HealthManager healthManager;
+
     private GameObject mainMenuScreen;
     private GameObject chapterSelectionScreen;
     private GameObject levelSelectionScreen;
@@ -20,6 +27,7 @@ public class UIManager : MonoBehaviour
     private GameObject previousScreen;
     private GameObject currentScreen;
     private GameObject settingsCreen;
+    private GameObject HUD;
 
     public Image transitionImage;
 
@@ -30,6 +38,9 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        inventory = FindAnyObjectByType<PlayerInventory>();
+        healthManager = FindAnyObjectByType<HealthManager>();
+
         mainMenuScreen = GameObject.Find("UIManager/UI_MainMenuScreen");
         chapterSelectionScreen = GameObject.Find("UIManager/UI_ChapterSelectionScreen");
         levelSelectionScreen = GameObject.Find("UIManager/UI_LevelSelectionScreen");
@@ -41,16 +52,16 @@ public class UIManager : MonoBehaviour
         defeatScreen = GameObject.Find("UIManager/UI_DefeatScreen");
         settingsCreen = GameObject.Find("UIManager/UI_SettingsScreen");
         winScreen = GameObject.Find("UIManager/UI_WinScreen");
+        HUD = GameObject.Find("UIManager/UI_HUD");
 
+        HUD.SetActive(false);
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
             mainMenuScreen.SetActive(false);
+            HUD.SetActive(true);
         }
         exitWarningScreen.SetActive(false);
-        if (chapterSelectionScreen != null)
-        {
-            chapterSelectionScreen.SetActive(false);
-        }
+        chapterSelectionScreen.SetActive(false);
         levelSelectionScreen.SetActive(false);
         characterSelectionScreen.SetActive(false);
         storeScreen.SetActive(false);
@@ -80,7 +91,10 @@ public class UIManager : MonoBehaviour
             isWindowed = false;
         }
 
-            SetFramerateTo60();
+        SetFramerateTo60();
+
+        UpdateOilIconUI();
+        UpdateLavenderIconUI();
     }
 
     private void Update()
@@ -103,6 +117,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Screen transition and screen flow
     public void TransitionScreenEffect(GameObject screenToHide, GameObject screenToShow)
     {
         if (transitionImage.GetComponent<CanvasGroup>() != null)
@@ -118,7 +133,6 @@ public class UIManager : MonoBehaviour
             s.AppendCallback(() => transitionImage.GetComponent<CanvasGroup>().blocksRaycasts = false);
         }
     }
-
     public void OpenMainMenuScene() //Abrir la escena del menú principal
     {
         SceneManager.LoadScene("MainMenu");
@@ -132,27 +146,22 @@ public class UIManager : MonoBehaviour
         pauseScreen.SetActive(false);
         pause = false;
     }
-
     public void ShowMainScreen() //Abrir la pantalla (UI) del menú principal
     {
 
     }
-
     public void ShowExitWarning()
     {
         exitWarningScreen.SetActive(true);
     }
-
     public void HideExitWarning()
     {
         exitWarningScreen.SetActive(false);
     }
-
     public void CloseGame()
     {
         Application.Quit();
     }
-
     public void ShowLevelSelectionScreen()
     {
         if (mainMenuScreen != null && levelSelectionScreen != null)
@@ -162,7 +171,6 @@ public class UIManager : MonoBehaviour
             TransitionScreenEffect(mainMenuScreen, levelSelectionScreen);
         }
     }
-
     public void ShowCharacterSelectionScreen()
     {
         if (mainMenuScreen != null && characterSelectionScreen != null)
@@ -172,7 +180,6 @@ public class UIManager : MonoBehaviour
             TransitionScreenEffect(mainMenuScreen, characterSelectionScreen);
         }
     }
-
     public void ShowStoreScreen()
     {
         if (mainMenuScreen != null && storeScreen != null)
@@ -182,60 +189,51 @@ public class UIManager : MonoBehaviour
             TransitionScreenEffect(mainMenuScreen, storeScreen);
         }
     }
-
     public void ShowSettingsScreen()
     {
         currentScreen = settingsCreen;
         previousScreen = mainMenuScreen;
         TransitionScreenEffect(mainMenuScreen, settingsCreen);
     }
-
     public void OpenFirstLevel()
     {
         levelSelectionScreen.SetActive(false);
         SceneManager.LoadScene("Level1_Library");
     }
-
     public void OpenSecondLevel()
     {
         levelSelectionScreen.SetActive(false);
         SceneManager.LoadScene("Level 2");
     }
-
     public void ShowDefeatScreen()
     {
         defeatScreen.SetActive(true);
         Cursor.visible = true;
         playerCaught = true;
     }
-
     public void ShowVictoryScreen()
     {
         winScreen.SetActive(true);
         Cursor.visible = true;
         pause = true;
     }
-
     public void ShowMenuScreen()
     {
         pauseMenuScreenBack.SetActive(true);
         pauseScreen.SetActive(true);
         pause = true;
     }
-
     public void HideMenuScreen()
     {
         pauseMenuScreenBack.SetActive(false);
         pauseScreen.SetActive(false);
         pause = false;
     }
-
     public void GoBack()
     {
         TransitionScreenEffect(currentScreen, previousScreen);
         UpdateGoBack();
     }
-
     public void UpdateGoBack()
     {
         if(currentScreen != mainMenuScreen)
@@ -251,10 +249,37 @@ public class UIManager : MonoBehaviour
             }
         }
     }
-
     public void RetryLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+
+    //HUD Elements
+    public void UpdateOilIconUI()
+    {
+        for (int i = 0; i < oilIcons.Count; i++)
+        {
+            if (inventory != null)
+            {
+                oilIcons[i].enabled = i < inventory.oilCounter;
+            }
+        }
+    }
+    public void UpdateLavenderIconUI()
+    {
+        for (int i = 0; i < lavenderIcons.Count; i++)
+        {
+            if (inventory != null)
+            {
+                lavenderIcons[i].enabled = i < inventory.lavenderCounter;
+            }   
+        }
+    }
+    public void UpdateSanityBar()
+    {
+        float normalized = (float) healthManager.sanity / healthManager.maxSanity; //Hace falta definir una cantidad maxima de sanidad
+        sanityBar.fillAmount = normalized;
     }
 
     //Framerates
