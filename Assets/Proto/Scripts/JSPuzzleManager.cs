@@ -31,24 +31,31 @@ public class JSPuzzleManager : MonoBehaviour
     private float width;
     private float height;
 
-    [SerializeField]
-    private float currentDistance;
+    [SerializeField] private float currentDistance;
 
     private Transform draggingPiece = null;
     private Vector3 offset;
 
-    [SerializeField]
-    private int piecesCorrect;
+    [SerializeField] private int piecesCorrect;
 
     public AudioSource keyAudio;
 
     [SerializeField] private GameObject keyPrefab;
     [SerializeField] private Transform keySpawnPoint;
 
+    private UIManager uiManager;
+
+    private void Awake()
+    {
+        
+    }
+
     private void OnEnable()
     {
+        uiManager = FindAnyObjectByType<UIManager>();
         Cursor.visible = true;
         mainCam.GetComponent<AudioListener>().enabled = false;
+        uiManager.pause = true;
 
         foreach (Texture2D texture in imageTextures)
         {
@@ -274,6 +281,7 @@ public class JSPuzzleManager : MonoBehaviour
             {
                 Debug.Log("Puzzle Complete!");
                 keyAudio.Play();
+                Instantiate(keyPrefab, keySpawnPoint.position, Quaternion.identity);
                 StartCoroutine(PuzzleCompleteLogic());
             }
         }
@@ -290,6 +298,7 @@ public class JSPuzzleManager : MonoBehaviour
         MessageManager.Instance.ShowKeyAppearedMessage();
         yield return new WaitForSeconds(4f);
         jsComponents.gameObject.SetActive(false);
+        uiManager.pause = false;
     }
 }
 
