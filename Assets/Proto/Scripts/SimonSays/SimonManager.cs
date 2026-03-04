@@ -150,7 +150,7 @@ public class SimonManager : MonoBehaviour
             {
                 Debug.Log("Incorrec");
                 incorrectAudio.Play();
-                simonGameActive = false;
+                //simonGameActive = false;
             }
 
         }
