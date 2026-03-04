@@ -43,7 +43,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     {
     	ChasePlayer();
         SetAnimation();
-        if(uIManager.pause == true)
+        if(uIManager.pause == true || stunned == true)
         {
             navMesh.speed = 0f;
         }

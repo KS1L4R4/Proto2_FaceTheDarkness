@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -26,6 +27,10 @@ public class PlayerController : MonoBehaviour
     public float oilRate;
     public float smoothtime = 5f;
     public float turnVelocity;
+    public int rayCount;
+    public  int shineAngle;
+    public int shineDistance;
+
     private string enemyTag = "Enemy";
     public Animator animator;
 
@@ -152,7 +157,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
-            enemyBehaviour.StartStun();
+            ShineLamp();
         }
     }
 
@@ -216,8 +221,26 @@ public class PlayerController : MonoBehaviour
         playerInventory.lavenderCounter--;
     }
 
-    private void ShineLight()
+    private void ShineLamp()
     {
-        
+        for (int i = 0; i < rayCount; i++)
+        {
+            float rotationAngle = -(shineAngle / 2) + (shineAngle / (rayCount - 1)) * i;
+            Quaternion rotation = Quaternion.AngleAxis(rotationAngle, Vector3.up);
+            Vector3 rayDirection = rotation * transform.forward;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, rayDirection, out hit, shineDistance))
+            {
+                if (hit.collider.CompareTag(enemyTag))
+                {
+                    Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
+                    enemyBehaviour.StartStun();
+                }
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, rayDirection * shineDistance, Color.green);
+            }
+        }
     }
 }
