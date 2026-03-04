@@ -16,6 +16,7 @@ TagManager:
   - BlueDoor
   - Dark
   - Light
+  - Exit
   layers:
   - Default
   - TransparentFX

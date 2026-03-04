@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -177,6 +178,14 @@ public class PlayerController : MonoBehaviour
                 playerInventory.RemovePickable(key);
                 return;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Exit"))
+        {
+            uimanager.ShowVictoryScreen();
         }
     }
 
