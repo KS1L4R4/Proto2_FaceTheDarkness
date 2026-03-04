@@ -10,11 +10,17 @@ public class PlayerInventory : MonoBehaviour
     //public List<InteractuableDesignator> keyList;
 
     //public List<InteractuableDesignator> oilList;
+    private UIManager uimanager;
     public List<InteractuableDesignator> pickablesList;
     public int oilCounter = 0;
     public int lavenderCounter = 0;
 
     int maxCapacity = 3;
+
+    private void Start()
+    {
+        uimanager = FindAnyObjectByType<UIManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,25 +36,23 @@ public class PlayerInventory : MonoBehaviour
             case InteractuableID.OilCan:
                 if(oilCounter >= maxCapacity)
                     {
-                        Debug.Log("You can't pick any more oil");
                         return;
                     }
                 oilCounter++;
-                Debug.Log("Your current oil count is: " + oilCounter);
+                uimanager.UpdateOilIconUI();
             break;
 
             case InteractuableID.Lavender:
                 if(lavenderCounter >= maxCapacity)
                     {
-                        Debug.Log("You can't pick any more lavender");
                         return;
                     }
                 lavenderCounter++;
-                Debug.Log("Your current lavender count is: " + lavenderCounter);
+                uimanager.UpdateLavenderIconUI();
             break;
 
             default:
-            //
+
             break;
 
         }

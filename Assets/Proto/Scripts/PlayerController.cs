@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     public float smoothtime = 5f;
     public float turnVelocity;
     public int rayCount;
-    public  int shineAngle;
+    public int shineAngle;
     public int shineDistance;
 
     private string enemyTag = "Enemy";
@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        healthManager.SanidadRes();
         if (uimanager.pause != true)
         {
             Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
@@ -131,7 +132,10 @@ public class PlayerController : MonoBehaviour
         }
         if (lightOn == true)
         {
-            oil -= oilRate * Time.deltaTime;
+            if(uimanager.pause != true)
+            {
+                oil -= oilRate * Time.deltaTime;
+            }
             SetDark(false);
         } else
         {
@@ -146,7 +150,10 @@ public class PlayerController : MonoBehaviour
         }
         if (oil == 0 || dark == true)
         {
-            healthManager.SanidadRes();
+            if(uimanager.pause != true)
+            {
+                healthManager.SanidadRes();
+            }
         }
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -204,6 +211,7 @@ public class PlayerController : MonoBehaviour
     {
         oil = maxOil;
         playerInventory.oilCounter--;
+        uimanager.UpdateOilIconUI();
     }
 
     private void SetLight(bool LightOn)
@@ -226,8 +234,9 @@ public class PlayerController : MonoBehaviour
 
     void UseLavender()
     {
-        healthManager.sanidad += 5; //Falta definir la cantidad
+        healthManager.sanity += 5; //Falta definir la cantidad
         playerInventory.lavenderCounter--;
+        uimanager.UpdateLavenderIconUI();
     }
 
     private void ShineLamp()
