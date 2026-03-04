@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     private GameObject pauseMenuScreenBack;
     private GameObject pauseScreen;
     private GameObject defeatScreen;
+    private GameObject winScreen;
     private GameObject victoryScreen;
     private GameObject exitWarningScreen;
     private GameObject characterSelectionScreen;
@@ -39,6 +40,7 @@ public class UIManager : MonoBehaviour
         pauseScreen = GameObject.Find("UIManager/UI_PauseMenuScreen");
         defeatScreen = GameObject.Find("UIManager/UI_DefeatScreen");
         settingsCreen = GameObject.Find("UIManager/UI_SettingsScreen");
+        winScreen = GameObject.Find("UIManager/UI_WinScreen");
 
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
@@ -56,6 +58,7 @@ public class UIManager : MonoBehaviour
         pauseScreen.SetActive(false);
         defeatScreen.SetActive(false);
         settingsCreen.SetActive(false);
+        winScreen.SetActive(false);
 
         pause = false;
         playerCaught = false;
@@ -208,7 +211,9 @@ public class UIManager : MonoBehaviour
 
     public void ShowVictoryScreen()
     {
-
+        winScreen.SetActive(true);
+        Cursor.visible = true;
+        pause = true;
     }
 
     public void ShowMenuScreen()
