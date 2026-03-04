@@ -42,7 +42,6 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private void Update()
     {
     	ChasePlayer();
-        SetAnimation();
         if(uIManager.pause == true || stunned == true)
         {
             navMesh.speed = 0f;
@@ -83,8 +82,9 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
                 if (hit.collider.CompareTag(targetTag))
                 {
                     Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
-                    enemySpeed = 3.5f;
+                    enemySpeed = 5f;
                     playerSpotted = true;
+                    enemyAnimator.SetBool("IsChasing", true);
                 }
                 else
                 {
@@ -104,25 +104,13 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         StartCoroutine(enemyStun());
     }
 
-    private void SetAnimation()
-    {
-        if (playerSpotted == true)
-        {
-            enemyAnimator.SetBool("IsChasing", true);
-        }
-        else
-        {
-            enemyAnimator.SetBool("IsChasing", false);
-        }
-    }
     IEnumerator enemyStun()
     {
+        enemyAnimator.SetBool("IsStunned", true);
         stunned = true;
         navMesh.speed = 0f;
-        Debug.Log("Enemy is Stunned");
         yield return new WaitForSeconds(5);
+        enemyAnimator.SetBool("IsStunned", false);
         stunned = false;
-        navMesh.speed = 2f;
-        Debug.Log("Enemy hgas recovered");
     }
 }
