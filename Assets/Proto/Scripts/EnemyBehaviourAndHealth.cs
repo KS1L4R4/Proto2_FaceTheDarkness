@@ -15,6 +15,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private bool playerSpotted = false;
     private bool stunned = false;
     private float enemySpeed;
+    AudioSource shout;
 
 
     public Transform targetPlayer;
@@ -29,6 +30,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         uIManager = FindAnyObjectByType<UIManager>();
         enemySpeed = 2f;
         navMesh.speed = enemySpeed;
+        shout = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -49,6 +51,22 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         else
         {
             navMesh.speed = enemySpeed;
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            shout.Play();
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            shout.Stop();
         }
     }
 
