@@ -3330,8 +3330,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0907f23ae39a0439b4de1f63a31c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  oilIcons: []
+  lavenderIcons: []
+  sanityBar: {fileID: 0}
   transitionImage: {fileID: 0}
   pause: 0
+  playerCaught: 0
 --- !u!4 &580411462
 Transform:
   m_ObjectHideFlags: 0
@@ -5855,8 +5859,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0907f23ae39a0439b4de1f63a31c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  oilIcons: []
+  lavenderIcons: []
+  sanityBar: {fileID: 0}
   transitionImage: {fileID: 0}
   pause: 0
+  playerCaught: 0
 --- !u!1 &1015057651
 GameObject:
   m_ObjectHideFlags: 0
@@ -8016,8 +8024,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f0907f23ae39a0439b4de1f63a31c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
+  oilIcons: []
+  lavenderIcons: []
+  sanityBar: {fileID: 0}
   transitionImage: {fileID: 0}
   pause: 0
+  playerCaught: 0
 --- !u!1 &1429833358
 GameObject:
   m_ObjectHideFlags: 0
@@ -10634,6 +10646,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3129648434456222765, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6266030371951005020, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.45
@@ -10682,6 +10698,10 @@ PrefabInstance:
       propertyPath: fxVolume
       value: 
       objectReference: {fileID: 1856376492}
+    - target: {fileID: 7507278748459023103, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
+      propertyPath: stunLight
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7507278748459023103, guid: 6f50834a8aae9a84e9dd8686aef2749f, type: 3}
       propertyPath: healthManager
       value: 

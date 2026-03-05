@@ -82,13 +82,12 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
                 if (hit.collider.CompareTag(targetTag))
                 {
                     Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
-                    enemySpeed = 5f;
                     playerSpotted = true;
                     enemyAnimator.SetBool("IsChasing", true);
                 }
                 else
                 {
-                    enemySpeed = 2f;
+                    enemySpeed = 6f;
                     playerSpotted = false;
                 }
             }

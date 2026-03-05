@@ -1,5 +1,4 @@
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -13,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
     public HealthManager healthManager;
     public Light lamp;
+    public Light stunLight;
     public Volume fxVolume;
     public Volume safeLight;
     public Volume darkness;
@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public int rayCount;
     public int shineAngle;
     public int shineDistance;
+    public float baseIntensity;
+    public float baseIntStun;
 
     private string enemyTag = "Enemy";
     public Animator animator;
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
         lightOn = false;
         lamp.enabled = false;
         vignette.intensity.value = 0.2f;
+        baseIntensity = lamp.intensity;
+        baseIntStun = stunLight.intensity;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -165,6 +169,8 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.P))
         {
+            ShineLampLight(500, 0.5f);
+            ShineStunLight(5000f, 0.5f);
             ShineLamp();
         }
     }
@@ -260,5 +266,23 @@ public class PlayerController : MonoBehaviour
                 Debug.DrawRay(transform.position, rayDirection * shineDistance, Color.green);
             }
         }
+    }
+
+    private void ShineLampLight(float pulseIntensity, float duration)
+    {
+        lamp.DOKill(); // prevent stacking tweens
+
+        Sequence s = DOTween.Sequence();
+        s.Append(lamp.DOIntensity(pulseIntensity, duration));
+        s.Append(lamp.DOIntensity(baseIntensity, duration));
+    }
+
+    private void ShineStunLight(float pulseIntensity, float duration)
+    {
+        stunLight.DOKill(); // prevent stacking tweens
+
+        Sequence s = DOTween.Sequence();
+        s.Append(stunLight.DOIntensity(pulseIntensity, duration));
+        s.Append(stunLight.DOIntensity(baseIntStun, duration));
     }
 }
