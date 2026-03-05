@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Analytics;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -9,16 +10,15 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private NavMeshAgent navMesh;
     private UIManager uIManager;
     private Animator enemyAnimator;
-    private Vector3 startingPosition;
+    //private Vector3 startingPosition;
+    public Transform targetPlayer;
+    private AudioSource shout;
+    [SerializeField] private Transform origin;
     private string targetTag = "Player";
     private bool playerCaught = false;
-    private bool playerSpotted = false;
+    //private bool playerSpotted = false;
     private bool stunned = false;
     private float enemySpeed;
-    AudioSource shout;
-
-
-    public Transform targetPlayer;
     public int rayCount;
     public float viewDistance;
     public float viewAngle;
@@ -89,30 +89,19 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 
     private void LookForPlayer()
     {
-        for (int i = 0; i < rayCount; i++)
+        // Solo ejecutar resto de la funci�n si el jugador est� en el rango
+		if (Vector3.Distance(transform.position, targetPlayer.position) > viewDistance)
+		{
+            navMesh.speed = 4f;
+            enemyAnimator.SetBool("IsChasing", true);
+            Debug.Log(navMesh.speed);
+			return;
+		}
+        else
         {
-            float rotationAngle = -(viewAngle / 2) + (viewAngle / (rayCount - 1)) * i;
-            Quaternion rotation = Quaternion.AngleAxis(rotationAngle, Vector3.up);
-            Vector3 rayDirection = rotation * transform.forward;
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, rayDirection, out hit, viewDistance))
-            {
-                if (hit.collider.CompareTag(targetTag))
-                {
-                    Debug.DrawRay(transform.position, rayDirection * hit.distance, Color.red);
-                    playerSpotted = true;
-                    enemyAnimator.SetBool("IsChasing", true);
-                }
-                else
-                {
-                    enemySpeed = 5.5f;
-                    playerSpotted = false;
-                }
-            }
-            else
-            {
-                Debug.DrawRay(transform.position, rayDirection * viewDistance, Color.green);
-            }
+            navMesh.speed = 5.3f;
+            enemyAnimator.SetBool("IsChasing", false);
+            Debug.Log(navMesh.speed);
         }
     }
 
