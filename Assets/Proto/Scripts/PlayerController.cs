@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     public int shineDistance;
     public float baseIntensity;
     public float baseIntStun;
+    AudioSource oilUse;
 
     private string enemyTag = "Enemy";
     public Animator animator;
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
         vignette.intensity.value = 0.2f;
         baseIntensity = lamp.intensity;
         baseIntStun = stunLight.intensity;
+        oilUse = GetComponent<AudioSource>();
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
@@ -216,6 +218,7 @@ public class PlayerController : MonoBehaviour
     void RechargeLamp()
     {
         oil = maxOil;
+        oilUse.Play();
         playerInventory.oilCounter--;
         uimanager.UpdateOilIconUI();
     }
