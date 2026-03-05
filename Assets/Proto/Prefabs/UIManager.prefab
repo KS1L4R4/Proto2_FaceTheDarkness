@@ -13515,7 +13515,7 @@ MonoBehaviour:
   m_text: "No puede acercarse a la luz, pero tu l\xE1mpara no es lo suficientemente
     intensa para ahuyentarlo... Normalmente. Puedes consumir  inmediatamente una
     gran cantidad de aceite para emitir un intenso destello capaz incapacitar al
-    monstruo brevemente."
+    monstruo brevemente pulsando Q."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
   m_sharedMaterial: {fileID: -248339490044792368, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
@@ -15628,7 +15628,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Encontrar\xE1s varias flores en el laberinto. Puedes cargar con un m\xE1ximo
-    de tres a la vez y utilizarlas para recuperar sanidad, pero son limitadas."
+    de tres a la vez y utilizarlas para recuperar sanidad pulsando B, pero son limitadas."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
   m_sharedMaterial: {fileID: -248339490044792368, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
@@ -16604,7 +16604,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Encontrar\xE1s varios botes en el laberinto. Puedes cargar con un m\xE1ximo
-    de tres a la vez y utilizarlos para rellenar la l\xE1mpara, pero son limitados."
+    de tres a la vez y utilizarlos para rellenar la l\xE1mpara pulsando R, pero son
+    limitados."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
   m_sharedMaterial: {fileID: -248339490044792368, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
