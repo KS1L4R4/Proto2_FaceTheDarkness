@@ -23,11 +23,7 @@ public class HealthManager : MonoBehaviour
     }
     public void KillPlayer()
     {
-        /*
-        isAlive = false;
-        playerController.rb.linearVelocity = Vector3.zero;
-        uIManager.ShowDefeatView();
-        */
+        uimanager.ShowSanityDeathScreen();
     }
 
     public void SanidadRes()

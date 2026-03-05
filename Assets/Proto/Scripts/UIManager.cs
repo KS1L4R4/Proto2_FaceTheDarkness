@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     private GameObject settingsCreen;
     private GameObject HUD;
     private GameObject tutorialScreen;
+    private GameObject sanityDeathScreen;
 
     public Image transitionImage;
 
@@ -55,6 +56,7 @@ public class UIManager : MonoBehaviour
         winScreen = GameObject.Find("UIManager/UI_WinScreen");
         HUD = GameObject.Find("UIManager/UI_HUD");
         tutorialScreen = GameObject.Find("UIManager/UI_TutorialScreen");
+        sanityDeathScreen = GameObject.Find("UIManager/UI_SanityDeathScreen");
 
         HUD.SetActive(false);
         if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -73,6 +75,7 @@ public class UIManager : MonoBehaviour
         settingsCreen.SetActive(false);
         winScreen.SetActive(false);
         tutorialScreen.SetActive(false);
+        sanityDeathScreen.SetActive(false);
 
         pause = false;
         playerCaught = false;
@@ -234,6 +237,12 @@ public class UIManager : MonoBehaviour
         pauseMenuScreenBack.SetActive(true);
         pauseScreen.SetActive(true);
         pause = true;
+    }
+    public void ShowSanityDeathScreen()
+    {
+        sanityDeathScreen.SetActive(true);
+        pause = true;
+        Cursor.visible = true;
     }
     public void HideMenuScreen()
     {

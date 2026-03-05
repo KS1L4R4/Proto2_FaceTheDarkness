@@ -105,7 +105,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
                 }
                 else
                 {
-                    enemySpeed = 6f;
+                    enemySpeed = 5.5f;
                     playerSpotted = false;
                 }
             }

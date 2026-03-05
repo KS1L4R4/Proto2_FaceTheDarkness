@@ -171,7 +171,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if(oil > 0)
+            if(oil > 0 && lamp.enabled == true)
             {
                 ShineLampLight(500, 0.5f);
                 ShineStunLight(5000f, 0.5f);
@@ -249,6 +249,7 @@ public class PlayerController : MonoBehaviour
         healthManager.sanity += 5; //Falta definir la cantidad
         playerInventory.lavenderCounter--;
         uimanager.UpdateLavenderIconUI();
+        uimanager.UpdateSanityBar();
     }
 
     private void ShineLamp(float oilToUse)
