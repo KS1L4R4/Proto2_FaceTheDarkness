@@ -28,6 +28,7 @@ public class UIManager : MonoBehaviour
     private GameObject currentScreen;
     private GameObject settingsCreen;
     private GameObject HUD;
+    private GameObject tutorialScreen;
 
     public Image transitionImage;
 
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
         settingsCreen = GameObject.Find("UIManager/UI_SettingsScreen");
         winScreen = GameObject.Find("UIManager/UI_WinScreen");
         HUD = GameObject.Find("UIManager/UI_HUD");
+        tutorialScreen = GameObject.Find("UIManager/UI_TutorialScreen");
 
         HUD.SetActive(false);
         if (SceneManager.GetActiveScene().name != "MainMenu")
@@ -70,6 +72,7 @@ public class UIManager : MonoBehaviour
         defeatScreen.SetActive(false);
         settingsCreen.SetActive(false);
         winScreen.SetActive(false);
+        tutorialScreen.SetActive(false);
 
         pause = false;
         playerCaught = false;
@@ -169,6 +172,15 @@ public class UIManager : MonoBehaviour
             currentScreen = levelSelectionScreen;
             previousScreen = mainMenuScreen;
             TransitionScreenEffect(mainMenuScreen, levelSelectionScreen);
+        }
+    }
+    public void ShowTutorialsScreen()
+    {
+        if (mainMenuScreen != null && tutorialScreen != null)
+        {
+            currentScreen = tutorialScreen;
+            previousScreen = mainMenuScreen;
+            TransitionScreenEffect(mainMenuScreen, tutorialScreen);
         }
     }
     public void ShowCharacterSelectionScreen()
