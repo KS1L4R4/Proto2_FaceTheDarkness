@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: testingu
-  m_Shader: {fileID: -6465566751694194690, guid: 119495441d5e44b4aa87241f676c315a, type: 3}
+  m_Name: LavenderDropMat
+  m_Shader: {fileID: -6465566751694194690, guid: c028a50568df04fb4b8f46e0c285ae0c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -120,11 +120,11 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OilCan_Color: {r: 1, g: 0.4980392, b: 0, a: 1}
+    - _LavenderColor: {r: 1, g: 0, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6956375643954708171
+--- !u!114 &2352291570760849279
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
