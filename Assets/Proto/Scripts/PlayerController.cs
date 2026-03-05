@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        healthManager.SanidadRes();
+        //healthManager.SanidadRes();
         if (uimanager.pause != true)
         {
             Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
