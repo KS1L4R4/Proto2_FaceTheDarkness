@@ -169,11 +169,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            ShineLampLight(500, 0.5f);
-            ShineStunLight(5000f, 0.5f);
-            ShineLamp();
+            if(oil > 0)
+            {
+                ShineLampLight(500, 0.5f);
+                ShineStunLight(5000f, 0.5f);
+                ShineLamp(25);
+            }
         }
     }
 
@@ -248,8 +251,9 @@ public class PlayerController : MonoBehaviour
         uimanager.UpdateLavenderIconUI();
     }
 
-    private void ShineLamp()
+    private void ShineLamp(float oilToUse)
     {
+        oil -= oilToUse;
         for (int i = 0; i < rayCount; i++)
         {
             float rotationAngle = -(shineAngle / 2) + (shineAngle / (rayCount - 1)) * i;
