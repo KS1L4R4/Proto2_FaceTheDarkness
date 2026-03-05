@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
                 RechargeLamp();
             }
         }
-        if (oil == 0 || dark == true)
+        if (lightOn == false && dark == true)
         {
             if(uimanager.pause != true)
             {
