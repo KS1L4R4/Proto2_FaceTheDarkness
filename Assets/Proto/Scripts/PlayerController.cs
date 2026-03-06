@@ -6,7 +6,6 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerController : MonoBehaviour
 {
-    //Elementos de la escena
     private PlayerInventory playerInventory;
     public EnemyBehaviourAndHealth enemyBehaviour;
     public Rigidbody rb;
@@ -19,20 +18,20 @@ public class PlayerController : MonoBehaviour
     private Vignette vignette;
     public Transform camara;
     public bool dark = false;
-    public bool lightOn;
+    public bool lightOn = false;
     public float playerSpeed;
     public float playerRotation;
-    public float loadingTime;
     public float oil;
     public float maxOil;
     public float oilRate;
-    public float smoothtime = 5f;
+    public float smoothtime;
     public float turnVelocity;
     public int rayCount;
     public int shineAngle;
     public int shineDistance;
     public float baseIntensity;
     public float baseIntStun;
+    public float oilThreshold;
     AudioSource oilUse;
 
     private string enemyTag = "Enemy";
@@ -40,36 +39,35 @@ public class PlayerController : MonoBehaviour
 
     private UIManager uimanager;
 
-    private void Awake()
+    void Awake()
     {
+        rb = GetComponent<Rigidbody>();
+        oilUse = GetComponent<AudioSource>();
         fxVolume.profile.TryGet(out vignette);
         uimanager = FindAnyObjectByType<UIManager>();
+        playerInventory = GetComponent<PlayerInventory>();
     }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        playerInventory = GetComponent<PlayerInventory>();
         playerSpeed = 3f;
         playerRotation = 0.1f;
-        loadingTime = 1f;
-        maxOil = 100f;
-        oil = maxOil;
         oilRate = 1f;
-        lightOn = false;
-        lamp.enabled = false;
-        vignette.intensity.value = 0.2f;
-        baseIntensity = lamp.intensity;
-        baseIntStun = stunLight.intensity;
-        oilUse = GetComponent<AudioSource>();
-
+        maxOil = 100f;
+        smoothtime = 5f;
+        oilThreshold = 10f;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
+        oil = maxOil;
+        lamp.enabled = false;
+        vignette.intensity.value = 0.2f;
+        baseIntensity = (oil/100) * 50;
+        baseIntStun = stunLight.intensity;
     }
 
     void Update()
     {
-        //healthManager.SanidadRes();
+        //Movement
         if (uimanager.pause != true)
         {
             Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), rb.linearVelocity.y, Input.GetAxisRaw("Vertical"));
@@ -102,10 +100,6 @@ public class PlayerController : MonoBehaviour
         {
             playerSpeed = 3f;
         }
-
-        //Vector3 moveVector = new Vector3(Input.GetAxisRaw("Horizontal"),0, Input.GetAxisRaw("Vertical")).normalized;
-        //rb.linearVelocity = Vector3.up * Physics.gravity.y;
-
         if (Input.GetKey(KeyCode.LeftShift))//Player runs
         {
             playerSpeed = 5f;
@@ -141,6 +135,16 @@ public class PlayerController : MonoBehaviour
             if(uimanager.pause != true)
             {
                 oil -= oilRate * Time.deltaTime;
+                if(oil <= oilThreshold)
+                {
+                    baseIntensity = (oil/oilThreshold) * 50;
+                    lamp.intensity = baseIntensity;
+                }
+                else
+                {
+                    baseIntensity = 50f;
+                    lamp.intensity = baseIntensity;
+                }
             }
             SetDark(false);
         } else
@@ -168,7 +172,6 @@ public class PlayerController : MonoBehaviour
                 UseLavender();
             }
         }
-
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if(oil > 0 && lamp.enabled == true)
