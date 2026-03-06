@@ -15,6 +15,8 @@ public class MessageManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI leversLeftText;
 
     [SerializeField] private CanvasGroup exitOpenedGroup;
+    [SerializeField] private CanvasGroup oilWarningGroup;
+    [SerializeField] private CanvasGroup sanityWarningGroup;
 
     private void Awake()
     {
@@ -40,8 +42,7 @@ public class MessageManager : MonoBehaviour
     {
         if (leversLeftText != null)
         {
-            UnityEngine.Debug.Log("Hello?");
-            leversLeftText.text = $"Levers Left: {leversLeft}";
+            leversLeftText.text = $"Palancas Restantes: {leversLeft}";
         }
     }
 
@@ -58,5 +59,17 @@ public class MessageManager : MonoBehaviour
     {
         exitOpenedGroup.DOFade(1, 0.5f);
         exitOpenedGroup.DOFade(0, 0.5f).SetDelay(3f);
+    }
+
+    public void ShowOilWarning()
+    {
+        oilWarningGroup.DOFade(1, 0.2f);
+        oilWarningGroup.DOFade(0, 0.5f).SetDelay(2f);
+    }
+
+    public void ShowSanityWarning()
+    {
+        sanityWarningGroup.DOFade(1, 0.2f);
+        sanityWarningGroup.DOFade(0, 0.5f).SetDelay(2f);
     }
 }

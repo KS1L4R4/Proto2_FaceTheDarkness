@@ -11,7 +11,7 @@ public class HealthManager : MonoBehaviour
 
     //Sanidad
     public float sanity;
-    public float maxSanity = 10f;
+    public float maxSanity = 25f;
 
     void Start()
     {
@@ -34,6 +34,10 @@ public class HealthManager : MonoBehaviour
         {
             sanity = 0;
             KillPlayer();
+        }
+        if (sanity <= 10)
+        {
+            MessageManager.Instance.ShowSanityWarning();
         }
         
     }
