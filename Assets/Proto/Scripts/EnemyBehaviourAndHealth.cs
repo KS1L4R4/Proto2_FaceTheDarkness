@@ -89,19 +89,16 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
 
     private void LookForPlayer()
     {
-        // Solo ejecutar resto de la funci�n si el jugador est� en el rango
 		if (Vector3.Distance(transform.position, targetPlayer.position) > viewDistance)
 		{
             navMesh.speed = 4f;
             enemyAnimator.SetBool("IsChasing", true);
-            Debug.Log(navMesh.speed);
 			return;
 		}
         else
         {
             navMesh.speed = 5.3f;
             enemyAnimator.SetBool("IsChasing", false);
-            Debug.Log(navMesh.speed);
         }
     }
 
