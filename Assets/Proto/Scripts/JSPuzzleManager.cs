@@ -43,6 +43,8 @@ public class JSPuzzleManager : MonoBehaviour
     [SerializeField] private GameObject keyPrefab;
     [SerializeField] private Transform keySpawnPoint;
 
+    public LayerMask jigsawLayer;
+
     private UIManager uiManager;
 
     private void Awake()
@@ -217,7 +219,7 @@ public class JSPuzzleManager : MonoBehaviour
         {
             Ray ray = MouseRaycast();
             RaycastHit hit;
-            Physics.Raycast(ray.origin, ray.direction, out hit, 1000);
+            Physics.Raycast(ray.origin, ray.direction, out hit, 1000, jigsawLayer);
 
             Debug.DrawRay(ray.origin, ray.direction * 1000);
 
