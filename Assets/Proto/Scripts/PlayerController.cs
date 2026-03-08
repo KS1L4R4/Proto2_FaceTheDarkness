@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
             SetLight(false);
             SetDark(true);
             oil = 0;
-
+            MessageManager.Instance.ShowOilWarning();
         }
         if (lightOn == true)
         {
