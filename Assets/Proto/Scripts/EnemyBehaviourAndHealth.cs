@@ -10,8 +10,11 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     private NavMeshAgent navMesh;
     private UIManager uIManager;
     private Animator enemyAnimator;
+    private PlayerController playerController;
     //private Vector3 startingPosition;
     public Transform targetPlayer;
+    public Transform returnalPoint;
+    public Transform targetPosition;
     private AudioSource shout;
     [SerializeField] private Transform origin;
     private string targetTag = "Player";
@@ -19,6 +22,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
     //private bool playerSpotted = false;
     private bool stunned = false;
     private float enemySpeed;
+    public bool shouldReturn;
     public int rayCount;
     public float viewDistance;
     public float viewAngle;
@@ -28,22 +32,27 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         navMesh = GetComponent<NavMeshAgent>();
         enemyAnimator = GetComponent<Animator>();
         uIManager = FindAnyObjectByType<UIManager>();
+        playerController = FindAnyObjectByType<PlayerController>();
         enemySpeed = 2f;
         navMesh.speed = enemySpeed;
         shout = GetComponent<AudioSource>();
     }
 
-    void FixedUpdate()
+    private void Update()
     {
         if(playerCaught == false && stunned == false)
         {
             LookForPlayer();
+            if (playerController.dark == true)
+            {
+                targetPosition = targetPlayer;
+            }
+            else
+            {
+                targetPosition = returnalPoint;
+            }
+            ChasePlayer(targetPosition);
         }
-    }
-
-    private void Update()
-    {
-    	ChasePlayer();
         if(uIManager.pause == true || stunned == true)
         {
             navMesh.speed = 0f;
@@ -52,6 +61,7 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         {
             navMesh.speed = enemySpeed;
         }
+        Debug.Log(targetPosition);
     }
 
     public void OnTriggerEnter(Collider other)
@@ -79,11 +89,11 @@ public class EnemyBehaviourAndHealth : MonoBehaviour
         }
     }
 
-    private void ChasePlayer()
+    private void ChasePlayer(Transform targetPosition)
     {
         if (targetPlayer != null)
         {
-            navMesh.SetDestination(targetPlayer.position);
+            navMesh.SetDestination(targetPosition.position);
         }
     }
 
