@@ -46,6 +46,7 @@ public class JSPuzzleManager : MonoBehaviour
     public LayerMask jigsawLayer;
 
     private UIManager uiManager;
+    private CanvasGroup hUDCanvasGroup;
 
     private void Awake()
     {
@@ -58,6 +59,8 @@ public class JSPuzzleManager : MonoBehaviour
         Cursor.visible = true;
         mainCam.GetComponent<AudioListener>().enabled = false;
         uiManager.pause = true;
+        hUDCanvasGroup = GameObject.Find("UIManager/UI_HUD").GetComponent<CanvasGroup>();
+        hUDCanvasGroup.alpha = 0;
 
         foreach (Texture2D texture in imageTextures)
         {
@@ -72,6 +75,7 @@ public class JSPuzzleManager : MonoBehaviour
     {
         Cursor.visible = false;
         mainCam.GetComponent<AudioListener>().enabled = true;
+        hUDCanvasGroup.alpha = 1;
     }
 
     public void StartGame(Texture2D jigsawTexture)
