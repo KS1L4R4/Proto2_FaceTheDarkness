@@ -14,7 +14,7 @@ public class PlayerInventory : MonoBehaviour
     public List<InteractuableDesignator> pickablesList;
     public int oilCounter = 0;
     public int lavenderCounter = 0;
-
+    [SerializeField] private AudioSource keyCollectedAudio;
     int maxCapacity = 3;
 
     private void Start()
@@ -52,7 +52,7 @@ public class PlayerInventory : MonoBehaviour
             break;
 
             default:
-
+                keyCollectedAudio.Play();
             break;
 
         }
