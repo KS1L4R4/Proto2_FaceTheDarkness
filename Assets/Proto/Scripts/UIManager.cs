@@ -36,8 +36,19 @@ public class UIManager : MonoBehaviour
     private GameObject lightDropPurchaseWindow;
     private GameObject lightDropPurchaseScreen;
     private GameObject errorMessage;
+    private GameObject characterOptions;
+    private GameObject storyScreen;
+    private GameObject cosmeticsScreen;
+    private GameObject leftButton;
+    private GameObject rightButton;
+    private GameObject warningLeft;
+    private GameObject warningRight;
 
     public Image purchaseImage;
+    public Image activePortrait;
+
+    public Image leftport;
+    public Image rightport;
 
     public TMP_Text purchaseText;
 
@@ -46,6 +57,7 @@ public class UIManager : MonoBehaviour
 
     public Image transitionImage;
 
+    private bool portraitChanged;
     public bool pause;
     public bool playerCaught;
 
@@ -75,6 +87,13 @@ public class UIManager : MonoBehaviour
         lightDropPurchaseWindow = GameObject.Find("UIManager/UI_StoreScreen/LightDropPurchaseWindow");
         lightDropPurchaseScreen = GameObject.Find("UIManager/UI_LightDropPurchaseScreen");
         errorMessage = GameObject.Find("UIManager/UI_LightDropPurchaseScreen/ErrorMessage");
+        characterOptions = GameObject.Find("UIManager/UI_CharacterSelectionScreen/Options");
+        storyScreen = GameObject.Find("UIManager/UI_StoryScreen");
+        cosmeticsScreen = GameObject.Find("UIManager/UI_Cosmetics");
+        leftButton = GameObject.Find("UIManager/UI_Cosmetics/LeftButton");
+        rightButton = GameObject.Find("UIManager/UI_Cosmetics/RightButton");
+        warningLeft = GameObject.Find("UIManager/UI_Cosmetics/WarningLeft");
+        warningRight = GameObject.Find("UIManager/UI_Cosmetics/WarningRight");
 
 
         HUD.SetActive(false);
@@ -99,6 +118,13 @@ public class UIManager : MonoBehaviour
         lightDropPurchaseWindow.SetActive(false);
         lightDropPurchaseScreen.SetActive(false);
         errorMessage.SetActive(false);
+        characterOptions.SetActive(false);
+        storyScreen.SetActive(false);
+        cosmeticsScreen.SetActive(false);
+        leftButton.SetActive(false);
+        rightButton.SetActive(false);
+        warningLeft.SetActive(false);
+        warningRight.SetActive(false);
 
         pause = false;
         playerCaught = false;
@@ -286,7 +312,7 @@ public class UIManager : MonoBehaviour
     }
     public void UpdateGoBack()
     {
-        if(currentScreen != mainMenuScreen)
+        if (currentScreen != mainMenuScreen)
         {
             currentScreen = previousScreen;
             if (currentScreen == levelSelectionScreen)
@@ -303,6 +329,11 @@ public class UIManager : MonoBehaviour
                 popupWindow.SetActive(false);
                 lightDropPurchaseWindow.SetActive(false);
                 lightDropPurchaseScreen.SetActive(false);
+            }
+            if (currentScreen == characterSelectionScreen)
+            {
+                previousScreen = mainMenuScreen;
+                characterOptions.SetActive(false);
             }
         }
     }
@@ -356,6 +387,65 @@ public class UIManager : MonoBehaviour
     public void HideErrorMessage()
     {
         errorMessage.SetActive(false);
+    }
+    public void ShowCharacterOptions()
+    {
+        characterOptions.SetActive(false);
+        characterOptions.SetActive(true);
+    }
+    public void ShowStory()
+    {
+        currentScreen = storyScreen;
+        previousScreen = characterSelectionScreen;
+        TransitionScreenEffect(characterSelectionScreen, storyScreen);
+    }
+    public void ShowCosmetics()
+    {
+        currentScreen = cosmeticsScreen;
+        previousScreen = characterSelectionScreen;
+        TransitionScreenEffect(characterSelectionScreen, cosmeticsScreen);
+        rightButton.SetActive(false);
+        leftButton.SetActive(false);
+    }
+
+    public void ShowChangeButton(int id)
+    {
+        if(id == 0)
+        {
+            leftButton.SetActive(true);
+            rightButton.SetActive(false);
+            rightport.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            leftport.color = new Color(1f, 1f, 1f, 1f);
+        }
+        if(id == 1)
+        {
+            rightButton.SetActive(true);
+            leftButton.SetActive(false);
+            leftport.color = new Color(0.5f, 0.5f, 0.5f, 1f);
+            rightport.color = new Color(1f, 1f, 1f, 1f);
+        }
+    }
+
+    public void ChangePortrait(int value)
+    {
+        activePortrait.sprite = itemImage[value];
+        rightButton.SetActive(false);
+        leftButton.SetActive(false);
+        warningLeft.SetActive(false);
+        warningRight.SetActive(false);
+    }
+    public void ShowLeft()
+    {
+        warningLeft.SetActive(true);
+    }
+    public void ShowRigth()
+    {
+        warningRight.SetActive(true);
+    }
+    public void cancelChange()
+    {
+        warningLeft.SetActive(false);
+        warningRight.SetActive(false);
     }
 
     //HUD Elements
