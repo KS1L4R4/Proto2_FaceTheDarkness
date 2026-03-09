@@ -1,5 +1,7 @@
 using DG.Tweening;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -30,6 +32,17 @@ public class UIManager : MonoBehaviour
     private GameObject HUD;
     private GameObject tutorialScreen;
     private GameObject sanityDeathScreen;
+    private GameObject popupWindow;
+    private GameObject lightDropPurchaseWindow;
+    private GameObject lightDropPurchaseScreen;
+    private GameObject errorMessage;
+
+    public Image purchaseImage;
+
+    public TMP_Text purchaseText;
+
+    public string[] itemDescriptions;
+    public Sprite[] itemImage;
 
     public Image transitionImage;
 
@@ -58,6 +71,12 @@ public class UIManager : MonoBehaviour
         tutorialScreen = GameObject.Find("UIManager/UI_TutorialScreen");
         sanityDeathScreen = GameObject.Find("UIManager/UI_SanityDeathScreen");
 
+        popupWindow = GameObject.Find("UIManager/UI_StoreScreen/PurchaseWindow");
+        lightDropPurchaseWindow = GameObject.Find("UIManager/UI_StoreScreen/LightDropPurchaseWindow");
+        lightDropPurchaseScreen = GameObject.Find("UIManager/UI_LightDropPurchaseScreen");
+        errorMessage = GameObject.Find("UIManager/UI_LightDropPurchaseScreen/ErrorMessage");
+
+
         HUD.SetActive(false);
         if (SceneManager.GetActiveScene().name != "MainMenu")
         {
@@ -76,6 +95,10 @@ public class UIManager : MonoBehaviour
         winScreen.SetActive(false);
         tutorialScreen.SetActive(false);
         sanityDeathScreen.SetActive(false);
+        popupWindow.SetActive(false);
+        lightDropPurchaseWindow.SetActive(false);
+        lightDropPurchaseScreen.SetActive(false);
+        errorMessage.SetActive(false);
 
         pause = false;
         playerCaught = false;
@@ -170,11 +193,11 @@ public class UIManager : MonoBehaviour
     }
     public void ShowLevelSelectionScreen()
     {
-        if (mainMenuScreen != null && levelSelectionScreen != null)
+        if (chapterSelectionScreen != null && levelSelectionScreen != null)
         {
             currentScreen = levelSelectionScreen;
-            previousScreen = mainMenuScreen;
-            TransitionScreenEffect(mainMenuScreen, levelSelectionScreen);
+            previousScreen = chapterSelectionScreen;
+            TransitionScreenEffect(chapterSelectionScreen, levelSelectionScreen);
         }
     }
     public void ShowTutorialsScreen()
@@ -194,6 +217,12 @@ public class UIManager : MonoBehaviour
             previousScreen = mainMenuScreen;
             TransitionScreenEffect(mainMenuScreen, characterSelectionScreen);
         }
+    }
+    public void ShowChapterSelectionScreem()
+    {
+        currentScreen = chapterSelectionScreen;
+        previousScreen = mainMenuScreen;
+        TransitionScreenEffect(mainMenuScreen, chapterSelectionScreen);
     }
     public void ShowStoreScreen()
     {
@@ -268,13 +297,66 @@ public class UIManager : MonoBehaviour
             {
                 previousScreen = mainMenuScreen;
             }
+            if (currentScreen == storeScreen)
+            {
+                previousScreen = mainMenuScreen;
+                popupWindow.SetActive(false);
+                lightDropPurchaseWindow.SetActive(false);
+                lightDropPurchaseScreen.SetActive(false);
+            }
         }
     }
     public void RetryLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void ShowPurchaseWindow(int itemID)
+    {
+        popupWindow.SetActive(true);
+        switch (itemID)
+        {
+            case 0:
+                purchaseImage.sprite = itemImage[itemID];
+                purchaseText.text = itemDescriptions[itemID];
+                break;
 
+            case 1:
+                purchaseImage.sprite = itemImage[itemID];
+                purchaseText.text = itemDescriptions[itemID];
+                break;
+
+            case 2:
+                purchaseImage.sprite = itemImage[itemID];
+                purchaseText.text = itemDescriptions[itemID];
+                break;
+        }
+    }
+    public void CancelPurchase()
+    {
+        popupWindow.SetActive(false);
+    }
+    public void ShowLightDropPurchaseWindow()
+    {
+        lightDropPurchaseWindow.SetActive(true);
+    }
+    public void HideLightDropPurchaseWindow()
+    {
+        lightDropPurchaseWindow.SetActive(false);
+    }
+    public void ShowLightDropPurchaseScreen()
+    {
+        currentScreen = lightDropPurchaseScreen;
+        previousScreen = storeScreen;
+        TransitionScreenEffect(storeScreen, lightDropPurchaseScreen);
+    }
+    public void ShowErrorMessage()
+    {
+        errorMessage.SetActive(true);
+    }
+    public void HideErrorMessage()
+    {
+        errorMessage.SetActive(false);
+    }
 
     //HUD Elements
     public void UpdateOilIconUI()
