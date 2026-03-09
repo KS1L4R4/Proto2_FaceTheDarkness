@@ -1488,6 +1488,14 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 3635695305952226359, guid: 674654289ea972446895d7d28db87759, type: 2}
+    - target: {fileID: 3230181667350944361, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -670.2467
+      objectReference: {fileID: 0}
+    - target: {fileID: 3230181667350944361, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 74.83339
+      objectReference: {fileID: 0}
     - target: {fileID: 3365744126420760741, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -1506,6 +1514,31 @@ PrefabInstance:
       objectReference: {fileID: -248339490044792368, guid: d08068ccd56a2fd4bb53b932b9b5ce44, type: 2}
     - target: {fileID: 3548994760987673249, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928985601364588285, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_text
+      value: "Si puedes ayudarnos respondiendo la encuesta por medio de este QR te
+        lo agradecer\xEDamos mucho :3 "
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928985601364588285, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_margin.x
+      value: 226.1553
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928985601364588285, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_margin.y
+      value: -253.77792
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928985601364588285, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_margin.z
+      value: 464.39603
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928985601364588285, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928985601364588285, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
+      propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4545128842687889410, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
@@ -1833,7 +1866,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3635695305952226359, guid: 674654289ea972446895d7d28db87759, type: 2}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8691455716536228120, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 087e615d2566ba948979de2a7c091dbd, type: 3}
